@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amortization Calculator</title>
+
+
+
+
+
+
+    
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            /* color: #333; */
+            /* padding: 1rem; */
+            box-sizing: border-box;
+            background: #f4f4f4;
+        }
+
+        .headPara {
+            font-weight: 500;
+        }
+
+        .calculator-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 2rem 0;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background-color: white;
+            border: 1px solid rgb(206, 206, 206);
+            border-radius: 20px;
+        }
+
+        .input-section-container,
+        .result-section {
+            min-width: 45%;
+        }
+
+        .result-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: rgb(80, 80, 80);
+        }
+
+        input,
+        select {
+            width: 100%;
+            font-size: 1.2em;
+            padding: 8px;
+            border: 2px solid #d1d1d1;
+            border-radius: 8px;
+            box-sizing: border-box;
+            outline-color: rgb(219, 128, 54);
+            color: rgb(80, 80, 80);
+        }
+
+        .down-payment-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .down-payment-group select {
+            width: 60px;
+        }
+
+        .down-payment-group input {
+            flex-grow: 1;
+        }
+
+        .info-text {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .calculate-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.4em;
+        }
+
+        .calculate-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .result-card {
+            /* background-color: #2D1B69; */
+            background: linear-gradient(90deg, #FF512F 0%, #c35b0b 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .input-section-container {
+            padding: 10px;
+            border-radius: 20px;
+        }
+
+        .estimated-payment {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-breakdown {
+            display: flex;
+            justify-content: space-between;
+            gap: .6rem;
+            margin-bottom: 20px;
+        }
+
+        .YouMightAlsoLike {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .YouMightAlsoLikeCont .YouMightAlsoLikeTitle {
+            text-align: center;
+            font-weight: 500;
+            margin: 1rem;
+        }
+
+        .YouMightAlsoLikeCont{
+            margin: 2rem 0;
+        }
+
+        .calculatorCards {
+            border: 1px solid rgb(206, 206, 206);
+            background: #fff;
+            border-radius: 20px;
+            padding: 1rem 2rem;
+
+            text-align: center;
+            font-size: .875rem;
+            color: #222;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+
+            max-width: 15rem;
+        }
+
+        .calculatorCards:hover{
+            border: 1px solid rgb(113, 113, 113);
+        }
+
+        .payment-item {
+            /* background-color: #3D2B79; */
+            background-color: #b11212;
+            padding: 10px;
+            border-radius: 4px;
+            flex: 1;
+            margin: 0 5px;
+            text-align: center;
+        }
+
+        .payment-item-label {
+            font-size: 0.8em;
+            margin-bottom: 5px;
+        }
+
+        .ctaDiv {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .get-real-numbers-btn {
+            /* background-color: #B11212; */
+            /* background-color: #F09819; */
+            background: linear-gradient(90deg,#FF512F 0%,#F09819 100%);
+            color: white;
+            border: none;
+            font-weight: bold;
+            padding: 12px 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 1.4rem;
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+            box-shadow: 0px 0px 2px 0px #e6e6e6;        
+        }
+
+        .get-real-numbers-btn:hover{
+            transform: scale(1.1);
+        }
+
+
+        .get-advice-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .get-advice-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+
+        .summary-title {
+            text-align: center;
+            font-size: 24px;
+            color: #FF512F;
+            margin-bottom: 20px;
+        }
+
+        .amortization-text {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .summary-list {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            padding-left: 20px;
+        }
+
+        .summary-list li {
+            margin-bottom: 10px;
+        }
+
+        .errorStyle {
+            display: none;
+            color: red;
+            background: rgb(255, 215, 215);
+            border: 1px solid rgb(255, 170, 170);
+            border-radius: 14px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .calculation-description-container {
+            padding: 1rem;
+            background-color: white;
+            border: 1px solid rgb(206, 206, 206);
+            border-radius: 20px;
+            
+            max-width: 900px;
+            margin: 20px auto;
+        }
+
+        .ComponentBody {
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                padding: 8px;
+                margin: 1rem 0;
+            }
+
+            .result-card {
+                padding: 1rem;
+            }
+
+            .ComponentBody {
+                padding: 10px;
+            }
+
+            .payment-item {
+                text-align: left;
+            }
+
+            .payment-breakdown {
+                flex-direction: column;
+            }
+
+        }
+    </style>
+
+
+
+
+
+
+
+</head>
+<body>
+    
+
+
+    <div class="ComponentBody">
+        <h1>Amortization Calculator</h1>
+        <p class="headPara">Estimate your monthly mortgage payment and view an amortization schedule.</p>
+    
+        <div id="errorMessage" class="errorStyle"></div>
+    
+        <div class="calculator-container">
+            <div class="input-section-container">
+                <!-- Input for Home Price -->
+                <div class="input-group">
+                    <label for="startingPrice">Home Price</label>
+                    <input type="text" id="startingPrice" placeholder="$0">
+                </div>
+    
+                <!-- Input for Down Payment -->
+                <div class="input-group">
+                    <label for="downPayment">Down Payment</label>
+                    <div class="down-payment-group">
+                        <select id="downPaymentType">
+                            <option value="$">$</option>
+                            <option value="%">%</option>
+                        </select>
+                        <input type="text" id="downPayment" placeholder="0">
+                    </div>
+                    <p class="info-text">An average down payment is about 5% of the home price.</p>
+                </div>
+    
+                <!-- Input for Loan Term -->
+                <div class="input-group">
+                    <label for="amortizationPeriod">Amortization Period (Years)</label>
+                    <select id="amortizationPeriod">
+                        <option value="">Select Term</option>
+                        <option value="5">5 years</option>
+                        <option value="10">10 years</option>
+                        <option value="15">15 years</option>
+                        <option value="20">20 years</option>
+                        <option value="25">25 years</option>
+                        <option value="30">30 years</option>
+                    </select>
+                </div>
+    
+                <!-- Input for Interest Rate -->
+                <div class="input-group">
+                    <label for="interestRate">Interest Rate (%)</label>
+                    <input type="number" id="interestRate" value="6.5" step="0.1">
+                </div>
+    
+                <!-- Calculate Button -->
+                <button class="calculate-btn" onclick="calculateMortgage()">Calculate</button>
+            </div>
+    
+            <!-- Result Section -->
+            <div class="result-section">
+                <div class="result-card">
+                    <h2>Estimated Monthly Payment</h2>
+                    <div class="estimated-payment" id="monthlyPayment">$--</div>
+                    <div class="payment-breakdown">
+                        <div class="payment-item">
+                            <div class="payment-item-label">Installments</div>
+                            <div id="installments">--</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="payment-item-label">Total Interest</div>
+                            <div id="totalInterest">$--</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="payment-item-label">Total Mortgage</div>
+                            <div id="totalMortgage">$--</div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+
+        <div id="mortgageSummary"></div>
+        
+        <p>Amortization Schedule:</p>
+        <div id="amortizationSchedule"></div>
+    
+    
+        <script>
+            const startingPriceInput = document.getElementById('startingPrice');
+            const downPaymentInput = document.getElementById('downPayment');
+            const downPaymentTypeInput = document.getElementById('downPaymentType');
+            const interestRateInput = document.getElementById('interestRate');
+            const amortizationPeriodInput = document.getElementById('amortizationPeriod');
+            const monthlyPaymentEl = document.getElementById('monthlyPayment');
+            const totalMortgageEl = document.getElementById('totalMortgage');
+            const totalInterestEl = document.getElementById('totalInterest');
+            const totalInstallmentsEl = document.getElementById('installments');
+            const amortizationScheduleEl = document.getElementById('amortizationSchedule');
+            const errorMessageEl = document.getElementById('errorMessage');
+    
+            function formatCurrency(value) {
+                value = value.replace(/[^\d.]/g, '');
+                const parts = value.split('.');
+                if (parts.length > 1) {
+                    parts[1] = parts[1].slice(0, 2);
+                    value = parts.join('.');
+                }
+                value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                return value;
+            }
+    
+            function handleCurrencyInput(input) {
+                const cursorPosition = input.selectionStart;
+                const oldLength = input.value.length;
+                input.value = formatCurrency(input.value);
+                const newLength = input.value.length;
+                input.setSelectionRange(cursorPosition + (newLength - oldLength), cursorPosition + (newLength - oldLength));
+            }
+    
+            startingPriceInput.addEventListener('input', () => handleCurrencyInput(startingPriceInput));
+            downPaymentInput.addEventListener('input', () => handleCurrencyInput(downPaymentInput));
+    
+            function calculateMortgage() {
+                const startingPrice = parseFloat(startingPriceInput.value.replace(/[^\d.]/g, ''));
+                let downPayment = parseFloat(downPaymentInput.value.replace(/[^\d.]/g, ''));
+                const downPaymentType = downPaymentTypeInput.value;
+                const annualInterestRate = parseFloat(interestRateInput.value) / 100;
+                const amortizationPeriod = parseInt(amortizationPeriodInput.value);
+    
+                if (!startingPrice || !downPayment || !annualInterestRate || !amortizationPeriod) {
+                    showError("Please fill in all fields correctly.");
+                    return;
+                }
+    
+                if (downPaymentType === "%") {
+                    downPayment = (downPayment / 100) * startingPrice;
+                }
+    
+                const mortgageAmount = startingPrice - downPayment;
+                const monthlyInterestRate = annualInterestRate / 12;
+                const numberOfPayments = amortizationPeriod * 12;
+    
+                const monthlyPayment = (mortgageAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
+                const totalInterest = (monthlyPayment * numberOfPayments) - mortgageAmount;
+    
+                monthlyPaymentEl.textContent = `$${monthlyPayment.toFixed(2)}`;
+                totalMortgageEl.textContent = `$${mortgageAmount.toFixed(2)}`;
+                totalInterestEl.textContent = `$${totalInterest.toFixed(2)}`;
+                totalInstallmentsEl.textContent = `${numberOfPayments.toFixed(2)}`;
+    
+                createAmortizationSchedule(mortgageAmount, monthlyInterestRate, monthlyPayment, numberOfPayments);
+            }
+    
+            function createAmortizationSchedule(principal, monthlyInterestRate, monthlyPayment, numberOfPayments) {
+                let balance = principal;
+                let schedule = "<table><tr><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr>";
+    
+                for (let i = 1; i <= numberOfPayments; i++) {
+                    const interestPayment = balance * monthlyInterestRate;
+                    const principalPayment = monthlyPayment - interestPayment;
+                    balance -= principalPayment;
+    
+                    schedule += `<tr>
+                                    <td>${i}</td>
+                                    <td>$${principalPayment.toFixed(2)}</td>
+                                    <td>$${interestPayment.toFixed(2)}</td>
+                                    <td>$${Math.max(balance, 0).toFixed(2)}</td>
+                                 </tr>`;
+                }
+    
+                schedule += "</table>";
+                amortizationScheduleEl.innerHTML = schedule;
+            }
+    
+            function showError(message) {
+                errorMessageEl.textContent = message;
+                errorMessageEl.style.display = 'block';
+            }
+    
+            function hideError() {
+                errorMessageEl.style.display = 'none';
+            }
+        </script>
+    </div>
+    
+
+
+
+</body>
+</html>
