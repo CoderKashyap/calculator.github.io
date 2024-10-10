@@ -26,10 +26,9 @@
             line-height: 1.6;
             max-width: 1200px;
             margin: 0 auto;
-            /* color: #333; */
-            /* padding: 1rem; */
             box-sizing: border-box;
-            background: #f4f4f4;
+            background: #fbfbfb;
+            /* background: #f4f4f4; */
         }
 
         .headPara {
@@ -47,6 +46,9 @@
             background-color: white;
             border: 1px solid rgb(206, 206, 206);
             border-radius: 20px;
+
+
+            box-shadow: 6px 10px 18px 0px #d3d3d3;
         }
 
         .input-section-container,
@@ -81,7 +83,8 @@
             border-radius: 8px;
             box-sizing: border-box;
             outline-color: rgb(219, 128, 54);
-            color: rgb(80, 80, 80);           ;
+            color: rgb(80, 80, 80);
+            ;
         }
 
         .down-payment-group {
@@ -118,7 +121,6 @@
         }
 
         .result-card {
-            /* background-color: #2D1B69; */
             background: linear-gradient(90deg, #FF512F 0%, #c35b0b 100%);
             color: white;
             padding: 20px;
@@ -160,7 +162,7 @@
             margin: 1rem;
         }
 
-        .YouMightAlsoLikeCont{
+        .YouMightAlsoLikeCont {
             margin: 2rem 0;
         }
 
@@ -179,12 +181,21 @@
             align-items: center;
             gap: 1rem;
             cursor: pointer;
-
             max-width: 15rem;
+
+
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+                0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
         }
 
-        .calculatorCards:hover{
+        .calculatorCards:hover {
             border: 1px solid rgb(113, 113, 113);
+
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15),
+                0 8px 16px rgba(0, 0, 0, 0.1);
         }
 
         .payment-item {
@@ -211,7 +222,7 @@
         .get-real-numbers-btn {
             /* background-color: #B11212; */
             /* background-color: #F09819; */
-            background: linear-gradient(90deg,#FF512F 0%,#F09819 100%);
+            background: linear-gradient(90deg, #FF512F 0%, #F09819 100%);
             color: white;
             border: none;
             font-weight: bold;
@@ -221,10 +232,10 @@
             margin: 1.4rem;
             font-size: 1.2em;
             transition: transform 0.3s ease;
-            box-shadow: 0px 0px 2px 0px #e6e6e6;        
+            box-shadow: 0px 0px 2px 0px #e6e6e6;
         }
 
-        .get-real-numbers-btn:hover{
+        .get-real-numbers-btn:hover {
             transform: scale(1.1);
         }
 
@@ -249,8 +260,7 @@
         .summary-title {
             text-align: center;
             font-size: 24px;
-            color: #FF512F;
-            margin-bottom: 20px;
+            margin: 1rem;
         }
 
         .amortization-text {
@@ -281,20 +291,140 @@
         }
 
         .calculation-description-container {
-            padding: 1rem;
+            padding: 1rem 2rem;
             background-color: white;
             border: 1px solid rgb(206, 206, 206);
             border-radius: 20px;
-            
             max-width: 900px;
-            margin: 20px auto;
+            margin: 1rem auto;
+        }
+
+        .calculation-description-container strong {
+            color: #ff512f;
         }
 
         .ComponentBody {
             margin: 2rem 0;
         }
 
+        .headingParaBox {
+            text-align: center;
+        }
+
+        #mortgageSummary {
+            margin: 2rem 0;
+        }
+
+
+        .aboutCalculatorSection {
+            /* border: 1px solid rgb(206, 206, 206);
+            background-color: white; */
+            margin: 2rem 0;
+            padding: 1rem 2rem;
+            border-radius: 20px;
+        }
+
+        .aboutCalculatorSection h3 {
+            text-align: center;
+            font-size: 1.6rem;
+            margin: 1rem;
+        }
+
+        .aboutCalculatorSection p {
+            color: #303c50;
+            font-size: 16px;
+            line-height: 1.62;
+            margin: 1rem 0;
+            white-space: normal;
+        }
+
+
+        .LoanFormulaSection {
+            padding: 1rem 2rem;
+            border: 1px solid rgb(206, 206, 206);
+            background-color: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .sectionBorder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 1rem;
+            /* background-color: #ff512f; */
+            background: linear-gradient(90deg, #FF512F 0%, #c35b0b 100%);
+            color: #ff512f;
+            width: 100%;
+            text-align: center;
+        }
+
+
+        .LoanFormulaSection h3 {
+            text-align: center;
+            font-size: 1.6rem;
+            margin: 1rem;
+        }
+
+        .LoanFormulaSection p {
+            color: #303c50;
+            font-size: 16px;
+            line-height: 1.62;
+            margin: 1rem 0;
+            white-space: normal;
+        }
+
+        .flex-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loanFormulaBox {
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .LoanFormulaSubBox {
+            gap: 0.6rem;
+            text-wrap: nowrap;
+        }
+
+
+        .exactFormulaBox {
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .uponLineMakeByBorder {
+            border-bottom: 2px solid black;
+        }
+
+        .defineRN {
+            flex-direction: column;
+        }
+
+        .loanInterestFocusText {
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
         @media (max-width: 768px) {
+
+            .aboutCalculatorSection {
+                padding: 1rem;
+            }
+
+            .LoanFormulaSection {
+                padding: 1rem 0.8rem;
+            }
+
+            .calculation-description-container {
+                padding: 1rem;
+            }
+
             .calculator-container {
                 padding: 8px;
                 margin: 1rem 0;
@@ -324,10 +454,13 @@
 
 
     <div class="ComponentBody">
-        <h1>Mortgage Calculator</h1>
-        <p class="headPara">If you're thinking about buying a home, we can help you estimate your monthly mortgage
-            payment.</p>
 
+
+        <div class="headingParaBox">
+            <h1>Mortgage Calculator</h1>
+            <p class="headPara">If you're thinking about buying a home, we can help you estimate your monthly mortgage
+                payment.</p>
+        </div>
 
         <div id="errorMessage" class="errorStyle"></div>
 
@@ -418,6 +551,119 @@
         <div id="mortgageSummary"></div>
 
 
+
+        <div class="aboutCalculatorSection">
+            <h3>About this Loan Calculator</h3>
+
+            <p>This loan calculator can help you find the payment amount and other information about your loan. You only
+                need to adjust 6 inputs to get results with this loan calculator. The following inputs are required for
+                the calculator to produce accurate results:</p>
+
+            <p> <strong>Mortgage:</strong> This is the loan principal. It is the amount of money that you borrow plus
+                any fees that may be added to the loan.</p>
+
+            <p><strong>Home Price:</strong> This is the total cost of the property you are purchasing. It includes the
+                purchase price of the home itself and may include any additional costs such as closing fees or taxes.
+                The loan amount is calculated based on the home price minus the down payment you can afford.</p>
+
+            <p><strong>Down Payment:</strong> The down payment is the initial amount of money you pay upfront when
+                purchasing a home. It is typically a percentage of the home price, and the larger the down payment, the
+                less you'll need to borrow. A larger down payment can also help reduce your monthly mortgage payments
+                and the overall cost of the loan by lowering the interest paid over time.</p>
+
+            <p> <strong>Interest Rate:</strong> This is a fixed interest rate of your loan. This calculator assumes a
+                fixed interest rate because it is impossible to accurately predict and calculate future variable
+                interest rate.</p>
+
+            <p> <strong>Amortization period:</strong> This is how long it will take for your loan to mature. At the end
+                of the
+                term, you will have your loan paid off in full. The longer your loan term, the less your monthly payment
+                is, but the larger your loan total cost will be.</p>
+
+        </div>
+
+
+
+        <div class="LoanFormulaSection">
+            <div class="sectionBorder"></div>
+
+            <h3>Loan Payment Formula</h3>
+
+            <p>To calculate your loan payments, you can use a simple loan payment formula that takes into account the
+                loan's principal (the amount you borrowed), the loan’s term length, and the interest rate.</p>
+
+
+            <div class="flex-box loanFormulaBox">
+
+                <div class="flex-box LoanFormulaSubBox">
+                    <span><strong>Loan Payment = </strong></span>
+                    <div class="flex-box exactFormulaBox">
+                        <span class="uponLineMakeByBorder">
+                            <strong>(Loan Amount) (r) (1+r)<sup>n</sup></strong>
+                        </span>
+                        <span>
+                            <strong>(1+r)<sup>n</sup> - 1</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <span>where</span>
+
+                <div class="flex-box defineRN">
+                    <span><strong>r</strong> = Periodic Interest Rate</span>
+                    <span><strong>n</strong> = Number of Payments</span>
+                </div>
+
+            </div>
+
+
+
+            <p> To find the periodic interest rate, you will need to know your payment frequency. This is how often
+                you’ll be making loan payments. For example, if you will be making monthly loan payments, then your
+                payment frequency is 12 (the number of months in a year). To find the periodic interest rate, divide the
+                annual interest rate by the number of payments you’ll make in one year. You’ll then convert the rate
+                into decimal form.</p>
+        </div>
+
+
+
+
+        <div class="LoanFormulaSection">
+            <div class="sectionBorder"></div>
+
+            <h3>How To Calculate Loan Interest</h3>
+
+            <p>To calculate the total interest paid on a loan, you will need to know your loan payment amount. Once you
+                know how much your loan payment amount would be, to calculate the total interest paid on this loan, you
+                would use the following formula.</p>
+
+            <p><strong>Total Interest Paid = (Loan Payment x Number of Payments) – Loan Amount</strong></p>
+
+            <p>For example, let’s say that you borrowed $10,000 for 5 years at a 5% interest rate. From our earlier
+                example, we found the monthly payment amount would be $188.71, spread out over 60 monthly payments. How
+                much interest would you pay over the life of this loan?</p>
+
+            <p> Borrowing $10,000 at a 5% rate would cost you $1,322.60 due to interest charges over 5 years. </p>
+
+
+            <div class="loanInterestFocusText">
+                <p><strong>Total Interest Paid = ($188.71×60)−$10,000</strong></p>
+                <p><strong>Total Interest Paid=$1,322.60</strong></p>
+            </div>
+
+
+            <p>This calculation uses the total lifetime payment of your loan, which is also another result that you can
+                get from this page’s loan calculator. The total lifetime payment can be found by this formula:</p>
+
+
+            <p><strong>Total Lifetime Payment = (Loan Payment x Number of Payments)</strong></p>
+
+            <p>In the above example, that would be $188.60 x 60 months, or $11,322.60.</p>
+            <p>Some loan types, such as mortgages, have term lengths that are shorter than the loan’s amortization
+                period. You can use a mortgage interest calculator to find the total interest paid in one mortgage term.
+            </p>
+
+        </div>
 
 
         <div class="YouMightAlsoLikeCont">
@@ -551,10 +797,10 @@
             // Create the mortgage summary description
             const summary = `
             <div class="calculation-description-container">
-                <h2 class="summary-title">Mortgage Summary</h2>
+                <h3 class="summary-title">Mortgage Summary</h3>
                 <div class="amortization-period">
                     <p class="amortization-text">
-                        Over the <strong>${amortizationPeriod}</strong>-year amortization period, you will:
+                        Over the <strong>${amortizationPeriod}-year</strong> amortization period, you will:
                     </p>
                     <ul class="summary-list">
                         <li>Have made <strong>${numberOfPayments}</strong> monthly payments (12x per year) of <strong>$${monthlyPayment.toFixed(2)}</strong>.</li>

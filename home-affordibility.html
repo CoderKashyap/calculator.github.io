@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f4f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .policy-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .policy-info h3 {
+            font-size: 1.2rem;
+            color: #4caf50;
+        }
+
+        .policy-info p {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .policy-info ul {
+            list-style: disc;
+            margin-left: 20px;
+            font-size: 0.9rem;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            font-size: 1.2rem;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.4rem;
+            color: #333;
+        }
+
+        #result {
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        #error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="calculator-container">
+        <h2>Home Affordability Calculator (Canada)</h2>
+
+        <div class="policy-info">
+            <h3>Canadian Mortgage Policy:</h3>
+            <p>
+                In Canada, lenders use two main ratios to determine how much home you can afford:
+            </p>
+            <ul>
+                <li><b>GDS (Gross Debt Service Ratio)</b>: Max 39% of your annual income can be used to cover housing
+                    costs.</li>
+                <li><b>TDS (Total Debt Service Ratio)</b>: Max 44% of your income, including monthly debts, can go
+                    toward all debt payments.</li>
+            </ul>
+        </div>
+
+        <div class="input-group">
+            <label for="income">Yearly Income Before Taxes ($):</label>
+            <input type="number" id="income" placeholder="Enter your yearly income">
+        </div>
+
+        <div class="input-group">
+            <label for="cashToBuy">Cash To Buy ($):</label>
+            <input type="number" id="cashToBuy" placeholder="Enter your cash to buy">
+        </div>
+
+        <div class="input-group">
+            <label for="debts">Monthly Debts ($):</label>
+            <input type="number" id="debts" placeholder="Enter your monthly debts">
+        </div>
+
+        <button id="calculateBtn">Calculate</button>
+
+        <p id="error-message"></p>
+        <div class="result">
+            <p>Estimated Home Price You Can Afford: <span id="result"></span></p>
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function () {
+            const income = parseFloat(document.getElementById('income').value);
+            const cashToBuy = parseFloat(document.getElementById('cashToBuy').value);
+            const debts = parseFloat(document.getElementById('debts').value);
+            const errorMessage = document.getElementById('error-message');
+            const resultDisplay = document.getElementById('result');
+
+            errorMessage.textContent = ''; // Reset error message
+            resultDisplay.textContent = ''; // Reset result display
+
+            // Validate inputs
+            if (isNaN(income) || isNaN(cashToBuy) || isNaN(debts)) {
+                errorMessage.textContent = 'Please fill all fields with valid numbers.';
+                return;
+            }
+
+            // Canadian mortgage policy: GDS (Gross Debt Service) & TDS (Total Debt Service)
+            const maxGDS = 0.39 * (income / 12); // Max housing cost (GDS)
+            const maxTDS = 0.44 * (income / 12) - debts; // Max debt cost (TDS)
+            const maxMonthlyPayment = Math.min(maxGDS, maxTDS); // Conservative monthly payment
+            const interestRate = 0.05; // Assuming 5% interest rate for calculations
+            const estimatedLoan = (maxMonthlyPayment / (interestRate / 12)) * (1 - (1 / Math.pow(1 + (interestRate / 12), 30 * 12)));
+
+            // Calculate Estimated Home Price: Loan Amount + Cash to Buy
+            const estimatedHomePrice = estimatedLoan + cashToBuy;
+
+            resultDisplay.textContent = `$${estimatedHomePrice.toFixed(2)}`;
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>
