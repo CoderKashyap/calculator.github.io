@@ -22,79 +22,77 @@
 
         <div class="headingParaBox">
             <h1>Refinance Calculator</h1>
-            <p class="headPara">Estimate your monthly mortgage payment and view an amortization schedule.</p>
+            <p class="headPara">Determining the equity in your home.</p>
         </div>
 
         <div id="errorMessage" class="errorStyle"></div>
 
 
-
         <div class="calculator-container">
+
+            <!-- <form id="refinance-form">
+                <div class="input-section">
+                    <label for="propertyValue">Property Value (CAD):</label>
+                    <input type="number" id="propertyValue" placeholder="Enter current property value" required>
+                </div>
+                <div class="input-section">
+                    <label for="currentMortgage">Current Mortgage (CAD):</label>
+                    <input type="number" id="currentMortgage" placeholder="Enter current mortgage amount" required>
+                </div>
+                <button type="button" id="calculate">Calculate</button>
+            </form> 
+            
+            <div class="result-section">
+                <h3>Determining the equity in your home</h3>
+                <p>Maximum mortgage percentage: <span>75%</span></p>
+                
+                <p>Current mortgage balance: <span id="currentMortgageDisplay"></span></p>
+                <p>Maximum mortgage amount: <span id="maxMortgageAmount"></span></p>
+                <p>Current home value: <span id="homeValueDisplay"></span></p>
+                <p>Cash available to access: <span id="availableCash"></span></p>
+
+            </div>
+            
+            -->
+
             <div class="input-section-container">
-                <!-- Input for Home Price -->
                 <div class="input-group">
-                    <label for="startingPrice">Property value</label>
-                    <input type="text" id="startingPrice" placeholder="$0">
+                    <label for="propertyValue">Property Value ($):</label>
+                    <input type="number" id="propertyValue" placeholder="$0" autocomplete="true" autofocus required>
                 </div>
 
-                <!-- Input for Down Payment -->
                 <div class="input-group">
-                    <label for="downPayment">Down Payment</label>
-                    <div class="down-payment-group">
-                        <select id="downPaymentType">
-                            <option value="$">$</option>
-                            <option value="%">%</option>
-                        </select>
-                        <input type="text" id="downPayment" placeholder="0">
-                    </div>
-                    <p class="info-text">An average down payment is about 5% of the property value.</p>
+                    <label for="currentMortgage">Current Mortgage ($):</label>
+                    <input type="number" id="currentMortgage" placeholder="$0" autocomplete="true" autofocus required>
+                </div>
+
+                <div class="flex-box-center">
+                    <button type="button" id="calculate" class="calculateBtn">Calculate</button>
                 </div>
 
 
-                <!-- Input for Interest Rate -->
-                <div class="input-group">
-                    <label for="interestRate">Interest Rate (%)</label>
-                    <input type="number" id="interestRate" value="6.5" step="0.5">
-                </div>
-
-                <!-- Input for Loan Term -->
-                <div class="input-group">
-                    <label for="amortizationPeriod">Amortization Period (Years)</label>
-                    <select id="amortizationPeriod">
-                        <option value="">Select Term</option>
-                        <option value="5">5 years</option>
-                        <option value="10">10 years</option>
-                        <option value="15">15 years</option>
-                        <option value="20">20 years</option>
-                        <option value="25">25 years</option>
-                        <option value="30">30 years</option>
-                    </select>
-                </div>
-
-                <!-- Calculate Button -->
-                <!-- <button class="calculate-btn" onclick="calculateMortgage()">Calculate</button> -->
             </div>
 
-            <!-- ... (keep existing result section) ... -->
             <div class="result-section">
 
                 <div class="result-card">
-                    <h2>Estimated Monthly Payment</h2>
-                    <div class="estimated-payment" id="monthlyPayment">$--</div>
+                    <h2>Cash available to access</h2>
+                    <div class="estimated-payment" id="availableCash">$--</div>
                     <div class="payment-breakdown">
                         <div class="payment-item">
-                            <div class="payment-item-label">INSTALLMENTS</div>
-                            <div id="installments">--</div>
+                            <div class="payment-item-label">Home Value</div>
+                            <div id="homeValueDisplay">$--</div>
                         </div>
                         <div class="payment-item">
-                            <div class="payment-item-label">INTEREST</div>
-                            <div id="totalInterest">$--</div>
+                            <div class="payment-item-label">CurrentMortgage</div>
+                            <div id="currentMortgageDisplay">$--</div>
                         </div>
                         <div class="payment-item">
-                            <div class="payment-item-label">MORTGAGE</div>
-                            <div id="totalMortgage">$--</div>
+                            <div class="payment-item-label">MaxMortgageAmount</div>
+                            <div id="maxMortgageAmount">$--</div>
                         </div>
                     </div>
+
                     <p>Apply now to get your actual numbers without affecting your credit.</p>
 
 
@@ -109,26 +107,36 @@
                 </div>
             </div>
 
+
         </div>
 
 
-
-
-        <div class="graphContainer" id="graph-container">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Amortization Schedule</h2>
-                    <p class="card-description">Monthly payments over the loan term</p>
-                </div>
-                <div>
-                    <canvas id="amortizationChart"></canvas>
-                </div>
+        <div id="result-section-below-yes-no" class="result-section-below-yes-no">
+            <p>Do you want to increase your mortgage to access the available cash?</p>
+            <div class="buttonBoxOf-result-section-below-yes-no">
+                <button type="button" id="yesBtn">YES</button>
+                <button type="button" id="noBtn">NO</button>
             </div>
         </div>
 
+        <!-- ----------------- -->
+        <div class="additional-cash-section" id="additional-cash-section" style="display: none;">
+            <p>How much cash do you want to access up to <span id="maxAvailableCash"></span>?</p>
+            <input type="number" id="cashToAccess" placeholder="Enter amount" required>
+            <button type="button" id="calculateFinal">Calculate New Mortgage</button>
+        </div>
 
-        <!-- Table -->
-        <div id="amortizationSchedule" class="graphContainer"></div>
+
+        <div class="final-result-section" id="final-result-section" style="display: none;">
+            <h3>How we calculate this</h3>
+            <p>Current mortgage: <span id="currentMortgageFinal"></span></p>
+            <p>+ Additional equity: <span id="additionalEquity"></span></p>
+            <p>= Additional Cash Available to Access: <span id="finalAvailableCash"></span></p>
+            <p>New Mortgage Amount: <span id="newMortgageAmount"></span></p>
+        </div>
+
+        <!-- ----------------- -->
+
 
 
         <div class="aboutCalculatorSection">
@@ -150,7 +158,7 @@
                 is not more than 30 days past due (without regard to any grace period) on and as of the Determination
                 Date. </p>
 
-                
+
             <hr class="hrInCalculatorAbout">
 
             <div class="ulSecInCalculatorAbout">
@@ -377,23 +385,108 @@
         </div>
 
 
-
-
-
-
-
-
-
-
-
-
     </div>
 
 
+     <script>
+
+        // Select the advertisement card
+        const adCard = document.querySelector('.servicesAdvertisment');
+
+        // Function to apply the tilt effect based on mouse position
+        adCard.addEventListener('mousemove', (e) => {
+            const cardWidth = adCard.offsetWidth;
+            const cardHeight = adCard.offsetHeight;
+            const centerX = adCard.offsetLeft + cardWidth / 2;
+            const centerY = adCard.offsetTop + cardHeight / 2;
+
+            const mouseX = e.clientX - centerX;
+            const mouseY = e.clientY - centerY;
+
+            const rotateX = (mouseY / cardHeight) * 0; // Adjust tilt intensity
+            const rotateY = (mouseX / cardWidth) * 2; // Adjust tilt intensity
+
+            adCard.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+        });
+
+        // Reset the tilt effect when the mouse leaves the card
+        adCard.addEventListener('mouseleave', () => {
+            adCard.style.transform = `perspective(800px) scale(1) rotateX(0) rotateY(0)`;
+        });
 
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="./calculator.js"></script>
+
+
+
+
+        document.getElementById('calculate').addEventListener('click', function () {
+            const propertyValue = parseFloat(document.getElementById('propertyValue').value);
+            const currentMortgage = parseFloat(document.getElementById('currentMortgage').value);
+
+            if (isNaN(propertyValue) || isNaN(currentMortgage)) {
+                alert("Please enter valid numbers for Property Value and Current Mortgage.");
+                return;
+            }
+
+            // Step 1: Maximum mortgage percentage (75%)
+            const maxMortgagePercentage = 0.75;
+            const maxMortgageAmount = propertyValue * maxMortgagePercentage;
+            const availableCash = maxMortgageAmount - currentMortgage;
+
+            // Step 2: Show the result in the UI
+            document.getElementById('homeValueDisplay').innerText = `$${propertyValue.toLocaleString()}`;
+            document.getElementById('maxMortgageAmount').innerText = `$${maxMortgageAmount.toLocaleString()}`;
+            document.getElementById('currentMortgageDisplay').innerText = `$${currentMortgage.toLocaleString()}`;
+            document.getElementById('availableCash').innerText = `$${availableCash.toLocaleString()}`;
+
+            // Step 3: Store data for later use
+            document.getElementById('maxAvailableCash').innerText = `$${availableCash.toLocaleString()}`;
+            document.getElementById('result-section-below-yes-no').style.display = "flex";
+
+            // Handling the YES/NO responses
+            document.getElementById('yesBtn').addEventListener('click', function () {
+                document.getElementById('additional-cash-section').style.display = "block";
+            });
+
+            document.getElementById('noBtn').addEventListener('click', function () {
+                document.getElementById('additional-cash-section').style.display = "none";
+                document.getElementById('final-result-section').style.display = "none";
+                alert("Thank you! You chose not to access additional cash.");
+            });
+        });
+
+        document.getElementById('calculateFinal').addEventListener('click', function () {
+            const cashToAccess = parseFloat(document.getElementById('cashToAccess').value);
+            const currentMortgage = parseFloat(document.getElementById('currentMortgage').value);
+
+            const propertyValue = parseFloat(document.getElementById('propertyValue').value);
+            const maxAvailableCash = (propertyValue * 0.75) - currentMortgage;
+
+            if (isNaN(cashToAccess) || cashToAccess > maxAvailableCash) {
+                alert(`Please enter a valid cash amount up to $${maxAvailableCash.toLocaleString()}.`);
+                return;
+            }
+
+            // Calculations
+            const newMortgageAmount = currentMortgage + cashToAccess;
+
+            // Step 4: Display final results
+            document.getElementById('currentMortgageFinal').innerText = `$${currentMortgage.toLocaleString()}`;
+            document.getElementById('additionalEquity').innerText = `$${cashToAccess.toLocaleString()}`;
+            document.getElementById('finalAvailableCash').innerText = `$${(maxAvailableCash - cashToAccess).toLocaleString()}`;
+            document.getElementById('newMortgageAmount').innerText = `$${newMortgageAmount.toLocaleString()}`;
+
+            document.getElementById('final-result-section').style.display = "block";
+        });
+
+
+
+
+
+
+
+    </script> 
+
 </body>
 
 

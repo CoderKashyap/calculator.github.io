@@ -226,11 +226,59 @@ select {
     transform: scale(1.1);
 }
 
+.result-section-below-yes-no{
+    display: none;
+    /* align-items: center;
+    justify-content: center;
+    text-align: center; */
+    flex-direction: column;
+}
+
+.buttonBoxOf-result-section-below-yes-no{
+    display: flex;
+    /* align-items: center;
+    justify-content: center; */
+    gap: 2rem;
+}
+
+
+.buttonBoxOf-result-section-below-yes-no button, #calculateFinal{
+    background-color: #1957e7;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 1.4rem;
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+    box-shadow: 0px 0px 2px 0px #e6e6e6;
+}
+
+
+.calculateBtn {
+    background: #222;
+    color: white;
+    border: none;
+    font-weight: 500;
+    padding: 12px 22px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 1.4rem;
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+    box-shadow: 0px 0px 2px 0px #e6e6e6;
+}
+
+.calculateBtn:hover {
+    background: #333;
+}
+
 
 .get-advice-btn {
     background-color: transparent;
-    color: white;
-    border: 1px solid white;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
     padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
