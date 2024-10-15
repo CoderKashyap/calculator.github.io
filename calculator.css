@@ -1,0 +1,644 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: #fbfbfb;
+}
+
+.headingParaBox {
+    text-align: center;
+}
+
+.headPara {
+    font-weight: 500;
+}
+
+.calculator-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 2rem 0;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 20px;
+
+
+    box-shadow: 6px 10px 18px 0px #d3d3d3;
+}
+
+
+
+.input-section-container,
+.result-section {
+    min-width: 44%;
+}
+
+.result-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: rgb(80, 80, 80);
+}
+
+input,
+select {
+    width: 100%;
+    font-size: 1.2em;
+    padding: 8px;
+    border: 2px solid #d1d1d1;
+    border-radius: 8px;
+    box-sizing: border-box;
+    outline-color: rgb(219, 128, 54);
+    color: rgb(80, 80, 80);
+}
+
+.down-payment-group {
+    display: flex;
+    gap: 10px;
+}
+
+.down-payment-group select {
+    width: 60px;
+}
+
+.down-payment-group input {
+    flex-grow: 1;
+}
+
+.info-text {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 5px;
+}
+
+.calculate-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.4em;
+}
+
+.calculate-btn:hover {
+    background-color: #0056b3;
+}
+
+.result-card {
+    background: linear-gradient(90deg, #FF512F 0%, #c35b0b 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.input-section-container {
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.estimated-payment {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-breakdown {
+    display: flex;
+    justify-content: space-between;
+    gap: .6rem;
+    margin-bottom: 20px;
+}
+
+.YouMightAlsoLike {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.YouMightAlsoLikeCont .YouMightAlsoLikeTitle {
+    text-align: center;
+    font-weight: 500;
+    margin: 1rem;
+}
+
+.YouMightAlsoLikeCont {
+    margin: 2rem 0;
+}
+
+.calculatorCards {
+    border: 1px solid rgb(206, 206, 206);
+    background: #fff;
+    border-radius: 20px;
+    padding: 1rem 2rem;
+
+    text-align: center;
+    font-size: .875rem;
+    color: #222;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    max-width: 15rem;
+
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calculatorCards:hover {
+    border: 1px solid rgb(113, 113, 113);
+
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15),
+        0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.payment-item {
+    background-color: #b11212;
+    padding: 10px;
+    border-radius: 4px;
+    flex: 1;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.payment-item-label {
+    font-size: 0.8em;
+    margin-bottom: 5px;
+}
+
+.ctaDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.get-real-numbers-btn {
+    background: linear-gradient(90deg, #FF512F 0%, #F09819 100%);
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 12px 22px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 1.4rem;
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+    box-shadow: 0px 0px 2px 0px #e6e6e6;
+}
+
+.get-real-numbers-btn:hover {
+    transform: scale(1.1);
+}
+
+
+.get-advice-btn {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.get-advice-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+
+
+.summary-title {
+    text-align: center;
+    font-size: 24px;
+    margin: 1rem;
+}
+
+.amortization-text {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.summary-list {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #555;
+    padding-left: 20px;
+}
+
+.summary-list li {
+    margin-bottom: 10px;
+}
+
+.errorStyle {
+    display: none;
+    color: red;
+    background: rgb(255, 215, 215);
+    border: 1px solid rgb(255, 170, 170);
+    border-radius: 14px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+
+
+.calculation-description-container {
+    padding: 1rem 2rem;
+    background-color: white;
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 20px;
+    max-width: 900px;
+    margin: 1rem auto;
+}
+
+.calculation-description-container strong {
+    color: #ff512f;
+}
+
+
+
+/* .ComponentBody {
+    margin: 2rem 0;
+} */
+
+.ComponentBody {
+    margin: 2rem 0;
+    padding: 1rem;
+}
+
+.ComponentBody h1 {
+    font-size: 1.8rem;
+}
+
+#mortgageSummary {
+    margin: 2rem 0;
+}
+
+
+
+.aboutCalculatorSection {
+    margin: 2rem 0;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+}
+
+.aboutCalculatorSection h3 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin: 1rem;
+}
+
+.aboutCalculatorSection p {
+    color: #303c50;
+    font-size: 16px;
+    line-height: 1.62;
+    margin: 1rem 0;
+    white-space: normal;
+}
+
+
+/* ----------------------------------------------- */
+.graphContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.card {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.card-header {
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+}
+
+.card-description {
+    font-size: 14px;
+    color: #666;
+}
+
+#chart-container {
+    height: 400px;
+}
+
+
+/* Add styles for the amortization schedule table */
+#amortizationSchedule {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    overflow: auto
+}
+
+#amortizationSchedule th,
+#amortizationSchedule td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: right;
+}
+
+#amortizationSchedule th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#amortizationSchedule tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#amortizationSchedule tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Hide graph and table initially */
+#amortizationSchedule,
+#graph-container {
+    display: none;
+}
+
+#amortizationChart {
+    height: 20rem !important;
+}
+
+
+.LoanFormulaSection {
+    padding: 1rem 2rem;
+    border: 1px solid rgb(206, 206, 206);
+    background-color: white;
+    margin: 2rem 0;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.sectionBorder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1rem;
+    background: linear-gradient(90deg, #FF512F 0%, #c35b0b 100%);
+    color: #ff512f;
+    width: 100%;
+    text-align: center;
+}
+
+
+.LoanFormulaSection h3 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin: 1rem;
+}
+
+.LoanFormulaSection p {
+    color: #303c50;
+    font-size: 16px;
+    line-height: 1.62;
+    margin: 1rem 0;
+    white-space: normal;
+}
+
+.flex-box-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-box-justify-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-box-justify-around {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.loanFormulaBox {
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.LoanFormulaSubBox {
+    gap: 0.6rem;
+    text-wrap: nowrap;
+}
+
+
+.exactFormulaBox {
+    flex-direction: column;
+    gap: 2px;
+}
+
+.uponLineMakeByBorder {
+    border-bottom: 2px solid black;
+}
+
+.defineRN {
+    flex-direction: column;
+}
+
+.loanInterestFocusText {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+
+
+
+
+
+
+
+/* --------------------------------------------- */
+
+/* Main Advertisement Card */
+.servicesAdvertisment {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgb(205, 205, 205);
+    height: auto;
+    margin: 2rem;
+    box-shadow: 6px 10px 18px 0px #d3d3d3;
+    flex-wrap: wrap-reverse;
+    background-color: #f9f9f9;
+    transition: transform 0.1s ease-out;
+    perspective: 1000px;
+}
+
+/* Add Smooth Transition for Scaling */
+.servicesAdvertisment:hover {
+    transform: scale(1.05);
+}
+
+
+
+.firstAdPara {
+    color: #000;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+
+.secAdPara {
+    color: #000;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.clrAdText{
+    color: rgba(255,125,0,1);
+}
+
+.leftPartOfAd {
+    flex: 1;
+    padding: 1rem 2rem;
+    width: 60%;
+}
+
+.leftPartOfAd button {
+    background: linear-gradient(90deg, #FF512F 0%, #F09819 100%);
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+    box-shadow: 0px 0px 2px 0px #e6e6e6;
+}
+
+.leftPartOfAd button:hover {
+    /* transform: scale(1.08); */
+    background: linear-gradient(90deg, #FF512F 0%, #F09819 100%);
+}
+
+
+.rightPartOfAd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+}
+
+.rightPartOfAd img {
+    max-width: 120%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+    .servicesAdvertisment {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        margin: 0;
+    }
+
+    .leftPartOfAd {
+        padding: 1rem 0;
+    }
+
+    .leftPartOfAd,
+    .rightPartOfAd {
+        width: 100%;
+        text-align: center;
+    }
+
+    .calculator-container {
+        padding: 6px;
+        margin: 1rem 0;
+    }
+
+    .result-card {
+        padding: 1rem;
+    }
+
+    .ComponentBody {
+        padding: 10px;
+    }
+
+    .payment-item {
+        text-align: left;
+    }
+
+    .payment-breakdown {
+        flex-direction: column;
+    }
+
+    .aboutCalculatorSection {
+        padding: 1rem;
+    }
+
+    .LoanFormulaSection {
+        padding: 1rem 0.8rem;
+    }
+
+    .calculation-description-container {
+        padding: 1rem;
+    }
+
+}
+
+
+
+
+

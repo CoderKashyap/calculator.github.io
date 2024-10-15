@@ -13,441 +13,8 @@
         rel="stylesheet">
 
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="./calculator.css">
 
-        body {
-            font-family: "Montserrat", sans-serif;
-            font-optical-sizing: auto;
-            font-style: normal;
-            line-height: 1.6;
-            max-width: 1200px;
-            margin: 0 auto;
-            box-sizing: border-box;
-            background: #fbfbfb;
-            /* background: #f4f4f4; */
-        }
-
-        .headPara {
-            font-weight: 500;
-        }
-
-        .calculator-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 2rem 0;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            background-color: white;
-            border: 1px solid rgb(206, 206, 206);
-            border-radius: 20px;
-
-
-            box-shadow: 6px 10px 18px 0px #d3d3d3;
-        }
-
-        .input-section-container,
-        .result-section {
-            min-width: 45%;
-        }
-
-        .result-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: rgb(80, 80, 80);
-        }
-
-        input,
-        select {
-            width: 100%;
-            font-size: 1.2em;
-            padding: 8px;
-            border: 2px solid #d1d1d1;
-            border-radius: 8px;
-            box-sizing: border-box;
-            outline-color: rgb(219, 128, 54);
-            color: rgb(80, 80, 80);
-            ;
-        }
-
-        .down-payment-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .down-payment-group select {
-            width: 60px;
-        }
-
-        .down-payment-group input {
-            flex-grow: 1;
-        }
-
-        .info-text {
-            font-size: 0.8em;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .calculate-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1.4em;
-        }
-
-        .calculate-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .result-card {
-            background: linear-gradient(90deg, #FF512F 0%, #c35b0b 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 20px;
-        }
-
-        .input-section-container {
-            padding: 10px;
-            border-radius: 20px;
-        }
-
-        .estimated-payment {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .payment-breakdown {
-            display: flex;
-            justify-content: space-between;
-            gap: .6rem;
-            margin-bottom: 20px;
-        }
-
-        .YouMightAlsoLike {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .YouMightAlsoLikeCont .YouMightAlsoLikeTitle {
-            text-align: center;
-            font-weight: 500;
-            margin: 1rem;
-        }
-
-        .YouMightAlsoLikeCont {
-            margin: 2rem 0;
-        }
-
-        .calculatorCards {
-            border: 1px solid rgb(206, 206, 206);
-            background: #fff;
-            border-radius: 20px;
-            padding: 1rem 2rem;
-
-            text-align: center;
-            font-size: .875rem;
-            color: #222;
-            text-decoration: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            cursor: pointer;
-            max-width: 15rem;
-
-
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
-                0 1px 3px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-        }
-
-        .calculatorCards:hover {
-            border: 1px solid rgb(113, 113, 113);
-
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15),
-                0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .payment-item {
-            /* background-color: #3D2B79; */
-            background-color: #b11212;
-            padding: 10px;
-            border-radius: 4px;
-            flex: 1;
-            margin: 0 5px;
-            text-align: center;
-        }
-
-        .payment-item-label {
-            font-size: 0.8em;
-            margin-bottom: 5px;
-        }
-
-        .ctaDiv {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .get-real-numbers-btn {
-            /* background-color: #B11212; */
-            /* background-color: #F09819; */
-            background: linear-gradient(90deg, #FF512F 0%, #F09819 100%);
-            color: white;
-            border: none;
-            font-weight: bold;
-            padding: 12px 22px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin: 1.4rem;
-            font-size: 1.2em;
-            transition: transform 0.3s ease;
-            box-shadow: 0px 0px 2px 0px #e6e6e6;
-        }
-
-        .get-real-numbers-btn:hover {
-            transform: scale(1.1);
-        }
-
-
-        .get-advice-btn {
-            background-color: transparent;
-            color: white;
-            border: 1px solid white;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1.2em;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .get-advice-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-
-        .summary-title {
-            text-align: center;
-            font-size: 24px;
-            margin: 1rem;
-        }
-
-        .amortization-text {
-            font-size: 18px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .summary-list {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #555;
-            padding-left: 20px;
-        }
-
-        .summary-list li {
-            margin-bottom: 10px;
-        }
-
-        .errorStyle {
-            display: none;
-            color: red;
-            background: rgb(255, 215, 215);
-            border: 1px solid rgb(255, 170, 170);
-            border-radius: 14px;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-
-        .calculation-description-container {
-            padding: 1rem 2rem;
-            background-color: white;
-            border: 1px solid rgb(206, 206, 206);
-            border-radius: 20px;
-            max-width: 900px;
-            margin: 1rem auto;
-        }
-
-        .calculation-description-container strong {
-            color: #ff512f;
-        }
-
-        .ComponentBody {
-            margin: 2rem 0;
-        }
-
-        .headingParaBox {
-            text-align: center;
-        }
-
-        #mortgageSummary {
-            margin: 2rem 0;
-        }
-
-
-        .aboutCalculatorSection {
-            /* border: 1px solid rgb(206, 206, 206);
-            background-color: white; */
-            margin: 2rem 0;
-            padding: 1rem 2rem;
-            border-radius: 20px;
-        }
-
-        .aboutCalculatorSection h3 {
-            text-align: center;
-            font-size: 1.6rem;
-            margin: 1rem;
-        }
-
-        .aboutCalculatorSection p {
-            color: #303c50;
-            font-size: 16px;
-            line-height: 1.62;
-            margin: 1rem 0;
-            white-space: normal;
-        }
-
-
-        .LoanFormulaSection {
-            padding: 1rem 2rem;
-            border: 1px solid rgb(206, 206, 206);
-            background-color: white;
-            margin: 2rem 0;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .sectionBorder {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 1rem;
-            /* background-color: #ff512f; */
-            background: linear-gradient(90deg, #FF512F 0%, #c35b0b 100%);
-            color: #ff512f;
-            width: 100%;
-            text-align: center;
-        }
-
-
-        .LoanFormulaSection h3 {
-            text-align: center;
-            font-size: 1.6rem;
-            margin: 1rem;
-        }
-
-        .LoanFormulaSection p {
-            color: #303c50;
-            font-size: 16px;
-            line-height: 1.62;
-            margin: 1rem 0;
-            white-space: normal;
-        }
-
-        .flex-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .loanFormulaBox {
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .LoanFormulaSubBox {
-            gap: 0.6rem;
-            text-wrap: nowrap;
-        }
-
-
-        .exactFormulaBox {
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .uponLineMakeByBorder {
-            border-bottom: 2px solid black;
-        }
-
-        .defineRN {
-            flex-direction: column;
-        }
-
-        .loanInterestFocusText {
-            text-align: center;
-            font-size: 1.2rem;
-        }
-
-        @media (max-width: 768px) {
-
-            .aboutCalculatorSection {
-                padding: 1rem;
-            }
-
-            .LoanFormulaSection {
-                padding: 1rem 0.8rem;
-            }
-
-            .calculation-description-container {
-                padding: 1rem;
-            }
-
-            .calculator-container {
-                padding: 8px;
-                margin: 1rem 0;
-            }
-
-            .result-card {
-                padding: 1rem;
-            }
-
-            .ComponentBody {
-                padding: 10px;
-            }
-
-            .payment-item {
-                text-align: left;
-            }
-
-            .payment-breakdown {
-                flex-direction: column;
-            }
-
-        }
-    </style>
 </head>
 
 <body>
@@ -469,7 +36,7 @@
             <div class="input-section-container">
                 <!-- Input for Home Price -->
                 <div class="input-group">
-                    <label for="startingPrice">Home Price</label>
+                    <label for="startingPrice">Property value</label>
                     <input type="text" id="startingPrice" placeholder="$0">
                 </div>
 
@@ -483,7 +50,7 @@
                         </select>
                         <input type="text" id="downPayment" placeholder="0">
                     </div>
-                    <p class="info-text">An average down payment is about 5% of the home price.</p>
+                    <p class="info-text">An average down payment is about 5% of the property value.</p>
                 </div>
 
                 <!-- Input for Loan Term -->
@@ -503,7 +70,7 @@
                 <!-- Input for Interest Rate -->
                 <div class="input-group">
                     <label for="interestRate">Interest Rate (%)</label>
-                    <input type="number" id="interestRate" value="6.5" step="0.1">
+                    <input type="number" id="interestRate" value="6.5" step="0.5">
                 </div>
 
                 <!-- Calculate Button -->
@@ -552,6 +119,25 @@
 
 
 
+
+        <div class="servicesAdvertisment flex-box-justify-between">
+
+            <div class="leftPartOfAd">
+                <p class="firstAdPara">Use Your Home Equity</p>
+                <p class="secAdPara">Get a <span class="clrAdText"> Home Equity Line of Credit </span> at Low Rates</p>
+                <p>Low HELOC Interest Rate at <strong>7.20%</strong></p>
+                <a href="https://app.freedomcapital.com/"> <button> Contact Now</button></a>
+            </div>
+
+            <div class="rightPartOfAd">
+                <img src="https://img.freepik.com/premium-photo/house-with-money-concept-finance-refinance-real-estate_1207718-250893.jpg"
+                    alt="servicesAdvertisment image">
+            </div>
+
+        </div>
+
+
+
         <div class="aboutCalculatorSection">
             <h3>About this Loan Calculator</h3>
 
@@ -562,12 +148,14 @@
             <p> <strong>Mortgage:</strong> This is the loan principal. It is the amount of money that you borrow plus
                 any fees that may be added to the loan.</p>
 
-            <p><strong>Home Price:</strong> This is the total cost of the property you are purchasing. It includes the
+            <p><strong>Property value:</strong> This is the total cost of the property you are purchasing. It includes
+                the
                 purchase price of the home itself and may include any additional costs such as closing fees or taxes.
-                The loan amount is calculated based on the home price minus the down payment you can afford.</p>
+                The loan amount is calculated based on the roperty value minus the down payment you can afford.</p>
 
             <p><strong>Down Payment:</strong> The down payment is the initial amount of money you pay upfront when
-                purchasing a home. It is typically a percentage of the home price, and the larger the down payment, the
+                purchasing a home. It is typically a percentage of the property value, and the larger the down payment,
+                the
                 less you'll need to borrow. A larger down payment can also help reduce your monthly mortgage payments
                 and the overall cost of the loan by lowering the interest paid over time.</p>
 
@@ -624,7 +212,6 @@
                 annual interest rate by the number of payments you’ll make in one year. You’ll then convert the rate
                 into decimal form.</p>
         </div>
-
 
 
 
@@ -822,6 +409,33 @@
             document.getElementById('mortgageSummary').innerHTML = summary;
         }
 
+
+
+
+
+        // Select the advertisement card
+        const adCard = document.querySelector('.servicesAdvertisment');
+
+        // Function to apply the tilt effect based on mouse position
+        adCard.addEventListener('mousemove', (e) => {
+            const cardWidth = adCard.offsetWidth;
+            const cardHeight = adCard.offsetHeight;
+            const centerX = adCard.offsetLeft + cardWidth / 2;
+            const centerY = adCard.offsetTop + cardHeight / 2;
+
+            const mouseX = e.clientX - centerX;
+            const mouseY = e.clientY - centerY;
+
+            const rotateX = (mouseY / cardHeight) * 0; // Adjust tilt intensity
+            const rotateY = (mouseX / cardWidth) * 2; // Adjust tilt intensity
+
+            adCard.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+        });
+
+        // Reset the tilt effect when the mouse leaves the card
+        adCard.addEventListener('mouseleave', () => {
+            adCard.style.transform = `perspective(800px) scale(1) rotateX(0) rotateY(0)`;
+        });
 
     </script>
 
