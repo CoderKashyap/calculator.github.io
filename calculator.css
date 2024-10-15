@@ -319,6 +319,7 @@ select {
     margin: 2rem 0;
     padding: 1rem 2rem;
     border-radius: 20px;
+    color: #303c50;
 }
 
 .aboutCalculatorSection h3 {
@@ -328,13 +329,24 @@ select {
 }
 
 .aboutCalculatorSection p {
-    color: #303c50;
     font-size: 16px;
     line-height: 1.62;
     margin: 1rem 0;
     white-space: normal;
 }
 
+.aboutCalculatorSection ul{
+    padding: 0 2rem;
+}
+
+.aboutCalculatorSection ul li{
+    margin: 1rem;
+}
+
+.hrInCalculatorAbout{
+    border: 1px solid #e9e9e9;
+    margin: 2rem 0;
+}
 
 /* ----------------------------------------------- */
 .graphContainer {
@@ -538,8 +550,8 @@ select {
     font-size: 1.5rem;
 }
 
-.clrAdText{
-    color: rgba(255,125,0,1);
+.clrAdText {
+    color: rgba(255, 125, 0, 1);
 }
 
 .leftPartOfAd {
@@ -628,6 +640,11 @@ select {
         padding: 1rem;
     }
 
+    .aboutCalculatorSection ul {
+        padding: 0;
+    }
+
+
     .LoanFormulaSection {
         padding: 1rem 0.8rem;
     }
@@ -637,8 +654,3 @@ select {
     }
 
 }
-
-
-
-
-
