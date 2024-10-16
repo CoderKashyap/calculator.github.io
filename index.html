@@ -73,8 +73,6 @@
                     <input type="number" id="interestRate" value="6.5" step="0.5">
                 </div>
 
-                <!-- Calculate Button -->
-                <!-- <button class="calculate-btn" onclick="calculateMortgage()">Calculate...</button> -->
             </div>
 
             <!-- Result Section -->
@@ -102,11 +100,11 @@
 
 
                     <div class="ctaDiv">
-                        <button class="get-real-numbers-btn">Apply Now </button>
+                        <button id="apply-now" class="get-real-numbers-btn">Apply Now </button>
                     </div>
 
                     <div class="ctaDiv">
-                        <button class="get-advice-btn">Get Expert Advice</button>
+                        <button id="call-now" class="get-advice-btn">Get Expert Advice</button>
                     </div>
 
                 </div>
@@ -126,7 +124,7 @@
                 <p class="firstAdPara">Use Your Home Equity</p>
                 <p class="secAdPara">Get a <span class="clrAdText"> Home Equity Line of Credit </span> at Low Rates</p>
                 <p>Low HELOC Interest Rate at <strong>7.20%</strong></p>
-                <a href="https://app.freedomcapital.com/"> <button> Contact Now</button></a>
+                <button>Contact Now</button>
             </div>
 
             <div class="rightPartOfAd">
@@ -436,6 +434,22 @@
         adCard.addEventListener('mouseleave', () => {
             adCard.style.transform = `perspective(800px) scale(1) rotateX(0) rotateY(0)`;
         });
+
+        document.getElementById("apply-now").addEventListener("click", function () {
+            window.location.href = "https://app.freedomcapital.com/";
+        });
+
+        
+        function callNow(e) {
+            e.preventDefault();
+            window.location.href = "tel:+18669447778";
+        }
+
+        // Add click event listener for the call button
+        adCard.addEventListener("click", callNow);    
+
+        document.getElementById("call-now").addEventListener("click", callNow);
+
 
     </script>
 

@@ -30,45 +30,22 @@
 
         <div class="calculator-container">
 
-            <!-- <form id="refinance-form">
-                <div class="input-section">
-                    <label for="propertyValue">Property Value (CAD):</label>
-                    <input type="number" id="propertyValue" placeholder="Enter current property value" required>
-                </div>
-                <div class="input-section">
-                    <label for="currentMortgage">Current Mortgage (CAD):</label>
-                    <input type="number" id="currentMortgage" placeholder="Enter current mortgage amount" required>
-                </div>
-                <button type="button" id="calculate">Calculate</button>
-            </form> 
-            
-            <div class="result-section">
-                <h3>Determining the equity in your home</h3>
-                <p>Maximum mortgage percentage: <span>75%</span></p>
-                
-                <p>Current mortgage balance: <span id="currentMortgageDisplay"></span></p>
-                <p>Maximum mortgage amount: <span id="maxMortgageAmount"></span></p>
-                <p>Current home value: <span id="homeValueDisplay"></span></p>
-                <p>Cash available to access: <span id="availableCash"></span></p>
-
-            </div>
-            
-            -->
-
             <div class="input-section-container">
                 <div class="input-group">
                     <label for="propertyValue">Property Value ($):</label>
-                    <input type="number" id="propertyValue" placeholder="$0" autocomplete="true" autofocus required>
+                    <input type="text" id="propertyValue" placeholder="$0" autocomplete="true" autofocus>
                 </div>
 
                 <div class="input-group">
                     <label for="currentMortgage">Current Mortgage ($):</label>
-                    <input type="number" id="currentMortgage" placeholder="$0" autocomplete="true" autofocus required>
+                    <input type="text" id="currentMortgage" placeholder="$0" autocomplete="true" autofocus>
+
+                    <p class="info-text">The new interest rate you’re considering</p>
                 </div>
 
-                <div class="flex-box-center">
+                <!-- <div class="flex-box-center">
                     <button type="button" id="calculate" class="calculateBtn">Calculate</button>
-                </div>
+                </div> -->
 
 
             </div>
@@ -97,11 +74,11 @@
 
 
                     <div class="ctaDiv">
-                        <button class="get-real-numbers-btn">Apply Now </button>
+                        <button id="apply-now" class="get-real-numbers-btn">Apply Now </button>
                     </div>
 
                     <div class="ctaDiv">
-                        <button class="get-advice-btn">Get Expert Advice</button>
+                        <button id="call-now" class="get-advice-btn">Get Expert Advice</button>
                     </div>
 
                 </div>
@@ -111,31 +88,45 @@
         </div>
 
 
-        <div id="result-section-below-yes-no" class="result-section-below-yes-no">
+        <div id="result-section-below-yes-no" class="result-section-below-yes-no" style="display: none;">
             <p>Do you want to increase your mortgage to access the available cash?</p>
             <div class="buttonBoxOf-result-section-below-yes-no">
-                <button type="button" id="yesBtn">YES</button>
-                <button type="button" id="noBtn">NO</button>
+                <button type="button" id="yesBtn">Yes</button>
+                <button type="button" id="noBtn">No</button>
             </div>
         </div>
 
         <!-- ----------------- -->
         <div class="additional-cash-section" id="additional-cash-section" style="display: none;">
-            <p>How much cash do you want to access up to <span id="maxAvailableCash"></span>?</p>
-            <input type="number" id="cashToAccess" placeholder="Enter amount" required>
+            <p>How much cash do you want to access up to <strong id="maxAvailableCash"></strong>?</p>
+            <input type="text" id="cashToAccess" placeholder="Enter amount" required>
             <button type="button" id="calculateFinal">Calculate New Mortgage</button>
         </div>
 
 
+
+
         <div class="final-result-section" id="final-result-section" style="display: none;">
-            <h3>How we calculate this</h3>
-            <p>Current mortgage: <span id="currentMortgageFinal"></span></p>
-            <p>+ Additional equity: <span id="additionalEquity"></span></p>
-            <p>= Additional Cash Available to Access: <span id="finalAvailableCash"></span></p>
-            <p>New Mortgage Amount: <span id="newMortgageAmount"></span></p>
+            <h3> <strong> How we calculate this </strong></h3>
+            <div style="display: flex; font-size: 1.2rem; color: #555;">
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <p>Current mortgage:</p>
+                    <p>+ Additional equity:</p>
+                    <p>= Additional Cash Available to Access:</p>
+                    <p style="font-weight: 600;">New Mortgage Amount:</p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; margin-left: 2rem; font-weight: 600; gap: 1rem;">
+                    <span id="currentMortgageFinal"></span>
+                    <span id="additionalEquity"></span>
+                    <span id="finalAvailableCash"></span>
+                    <span id="newMortgageAmount"></span>
+                </div>
+            </div>
         </div>
 
         <!-- ----------------- -->
+
 
 
 
@@ -229,20 +220,19 @@
 
 
         <div class="servicesAdvertisment flex-box-justify-between">
-
             <div class="leftPartOfAd">
                 <p class="firstAdPara">Use Your Home Equity</p>
-                <p class="secAdPara">Get a <span class="clrAdText"> Home Equity Line of Credit </span> at Low Rates</p>
+                <p class="secAdPara">Get a <span class="clrAdText">Home Equity Line of Credit</span> at Low Rates</p>
                 <p>Low HELOC Interest Rate at <strong>7.20%</strong></p>
-                <a href="https://app.freedomcapital.com/"> <button> Contact Now</button></a>
+                <button>Contact Now</button>
             </div>
 
             <div class="rightPartOfAd">
                 <img src="https://img.freepik.com/premium-photo/house-with-money-concept-finance-refinance-real-estate_1207718-250893.jpg"
                     alt="servicesAdvertisment image">
             </div>
-
         </div>
+
 
 
 
@@ -388,7 +378,129 @@
     </div>
 
 
-     <script>
+
+    <script>
+        const propertyValueInput = document.getElementById('propertyValue');
+        const currentMortgageInput = document.getElementById('currentMortgage');
+        const errorMessageEl = document.getElementById('errorMessage');
+
+        // Utility functions for displaying errors
+        function showError(message) {
+            errorMessageEl.textContent = message;
+            errorMessageEl.style.display = 'block';
+        }
+
+        function hideError() {
+            errorMessageEl.style.display = 'none';
+        }
+
+        function formatCurrency(value) {
+            value = value.replace(/[^\d.]/g, '');
+            const parts = value.split('.');
+            if (parts.length > 1) {
+                parts[1] = parts[1].slice(0, 2);
+                value = parts.join('.');
+            }
+            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return value;
+        }
+
+        function handleCurrencyInput(input) {
+            input.value = formatCurrency(input.value);
+        }
+
+        // Add event listeners to inputs
+        propertyValueInput.addEventListener('input', () => handleCurrencyInput(propertyValueInput));
+        currentMortgageInput.addEventListener('input', () => handleCurrencyInput(currentMortgageInput));
+
+        // Auto-calculate only if both fields are filled
+        [propertyValueInput, currentMortgageInput].forEach(input => {
+            input.addEventListener('input', calculateRefinance);
+        });
+
+        function calculateRefinance() {
+            const propertyValue = parseFloat(propertyValueInput.value.replace(/[^\d.]/g, ''));
+            const currentMortgage = parseFloat(currentMortgageInput.value.replace(/[^\d.]/g, ''));
+
+            // Hide sections and reset UI if any input is empty
+            if (!propertyValue || !currentMortgage) {
+                resetUI();
+                return;
+            }
+
+            if (isNaN(propertyValue) || isNaN(currentMortgage)) {
+                showError("Please enter valid numbers for Property Value and Current Mortgage.");
+                return;
+            }
+
+            // Clear any existing error messages
+            hideError();
+
+            // Maximum mortgage calculation
+            const maxMortgagePercentage = 0.75;
+            const maxMortgageAmount = propertyValue * maxMortgagePercentage;
+            const availableCash = maxMortgageAmount - currentMortgage;
+
+            // Update UI
+            document.getElementById('homeValueDisplay').innerText = `$${propertyValue.toLocaleString()}`;
+            document.getElementById('maxMortgageAmount').innerText = `$${maxMortgageAmount.toLocaleString()}`;
+            document.getElementById('currentMortgageDisplay').innerText = `$${currentMortgage.toLocaleString()}`;
+            document.getElementById('availableCash').innerText = `$${availableCash.toLocaleString()}`;
+            document.getElementById('maxAvailableCash').innerText = `$${availableCash.toLocaleString()}`;
+            document.getElementById('result-section-below-yes-no').style.display = "flex";
+
+            // Handle YES/NO responses
+            document.getElementById('yesBtn').addEventListener('click', function () {
+                document.getElementById('additional-cash-section').style.display = "flex";
+            });
+
+            document.getElementById('noBtn').addEventListener('click', function () {
+                document.getElementById('additional-cash-section').style.display = "none";
+                document.getElementById('final-result-section').style.display = "none";
+                hideError();
+                showError("Thank you! You choose not to access additional cash.");
+            });
+        }
+
+        function resetUI() {
+            // Reset UI values
+            document.getElementById('homeValueDisplay').innerText = `$--`;
+            document.getElementById('maxMortgageAmount').innerText = `$--`;
+            document.getElementById('currentMortgageDisplay').innerText = `$--`;
+            document.getElementById('availableCash').innerText = `$--`;
+            document.getElementById('maxAvailableCash').innerText = `$--`;
+            document.getElementById('result-section-below-yes-no').style.display = "none";
+            document.getElementById('additional-cash-section').style.display = "none";
+            document.getElementById('final-result-section').style.display = "none";
+            hideError();
+        }
+
+        document.getElementById('calculateFinal').addEventListener('click', function () {
+            const cashToAccess = parseFloat(document.getElementById('cashToAccess').value.replace(/[^\d.]/g, ''));
+            const currentMortgage = parseFloat(document.getElementById('currentMortgage').value.replace(/[^\d.]/g, ''));
+            const propertyValue = parseFloat(document.getElementById('propertyValue').value.replace(/[^\d.]/g, ''));
+            const maxAvailableCash = (propertyValue * 0.75) - currentMortgage;
+
+            if (isNaN(cashToAccess) || cashToAccess > maxAvailableCash) {
+                showError(`Please enter a valid cash amount up to $${maxAvailableCash.toLocaleString()}.`);
+                return;
+            }
+
+            // Calculations
+            const newMortgageAmount = currentMortgage + cashToAccess;
+
+            // Update final results
+            document.getElementById('currentMortgageFinal').innerText = `$${currentMortgage.toLocaleString()}`;
+            document.getElementById('additionalEquity').innerText = `$${cashToAccess.toLocaleString()}`;
+            document.getElementById('finalAvailableCash').innerText = `$${(maxAvailableCash - cashToAccess).toLocaleString()}`;
+            document.getElementById('newMortgageAmount').innerText = `$${newMortgageAmount.toLocaleString()}`;
+
+            document.getElementById('final-result-section').style.display = "flex";
+            hideError();
+        });
+
+
+
 
         // Select the advertisement card
         const adCard = document.querySelector('.servicesAdvertisment');
@@ -414,78 +526,23 @@
             adCard.style.transform = `perspective(800px) scale(1) rotateX(0) rotateY(0)`;
         });
 
+        function callNow(e) {
+            e.preventDefault();
+            window.location.href = "tel:+18669447778";
+        }
+
+        // Add click event listener for the call button
+        adCard.addEventListener("click", callNow);
+
+        document.getElementById("call-now").addEventListener("click", callNow);
 
 
-
-
-
-        document.getElementById('calculate').addEventListener('click', function () {
-            const propertyValue = parseFloat(document.getElementById('propertyValue').value);
-            const currentMortgage = parseFloat(document.getElementById('currentMortgage').value);
-
-            if (isNaN(propertyValue) || isNaN(currentMortgage)) {
-                alert("Please enter valid numbers for Property Value and Current Mortgage.");
-                return;
-            }
-
-            // Step 1: Maximum mortgage percentage (75%)
-            const maxMortgagePercentage = 0.75;
-            const maxMortgageAmount = propertyValue * maxMortgagePercentage;
-            const availableCash = maxMortgageAmount - currentMortgage;
-
-            // Step 2: Show the result in the UI
-            document.getElementById('homeValueDisplay').innerText = `$${propertyValue.toLocaleString()}`;
-            document.getElementById('maxMortgageAmount').innerText = `$${maxMortgageAmount.toLocaleString()}`;
-            document.getElementById('currentMortgageDisplay').innerText = `$${currentMortgage.toLocaleString()}`;
-            document.getElementById('availableCash').innerText = `$${availableCash.toLocaleString()}`;
-
-            // Step 3: Store data for later use
-            document.getElementById('maxAvailableCash').innerText = `$${availableCash.toLocaleString()}`;
-            document.getElementById('result-section-below-yes-no').style.display = "flex";
-
-            // Handling the YES/NO responses
-            document.getElementById('yesBtn').addEventListener('click', function () {
-                document.getElementById('additional-cash-section').style.display = "block";
-            });
-
-            document.getElementById('noBtn').addEventListener('click', function () {
-                document.getElementById('additional-cash-section').style.display = "none";
-                document.getElementById('final-result-section').style.display = "none";
-                alert("Thank you! You chose not to access additional cash.");
-            });
-        });
-
-        document.getElementById('calculateFinal').addEventListener('click', function () {
-            const cashToAccess = parseFloat(document.getElementById('cashToAccess').value);
-            const currentMortgage = parseFloat(document.getElementById('currentMortgage').value);
-
-            const propertyValue = parseFloat(document.getElementById('propertyValue').value);
-            const maxAvailableCash = (propertyValue * 0.75) - currentMortgage;
-
-            if (isNaN(cashToAccess) || cashToAccess > maxAvailableCash) {
-                alert(`Please enter a valid cash amount up to $${maxAvailableCash.toLocaleString()}.`);
-                return;
-            }
-
-            // Calculations
-            const newMortgageAmount = currentMortgage + cashToAccess;
-
-            // Step 4: Display final results
-            document.getElementById('currentMortgageFinal').innerText = `$${currentMortgage.toLocaleString()}`;
-            document.getElementById('additionalEquity').innerText = `$${cashToAccess.toLocaleString()}`;
-            document.getElementById('finalAvailableCash').innerText = `$${(maxAvailableCash - cashToAccess).toLocaleString()}`;
-            document.getElementById('newMortgageAmount').innerText = `$${newMortgageAmount.toLocaleString()}`;
-
-            document.getElementById('final-result-section').style.display = "block";
+        document.getElementById("apply-now").addEventListener("click", function () {
+            window.location.href = "https://app.freedomcapital.com/";
         });
 
 
-
-
-
-
-
-    </script> 
+    </script>
 
 </body>
 

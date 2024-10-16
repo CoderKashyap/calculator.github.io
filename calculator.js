@@ -310,3 +310,40 @@ adCard.addEventListener('mousemove', (e) => {
 adCard.addEventListener('mouseleave', () => {
     adCard.style.transform = `perspective(800px) scale(1) rotateX(0) rotateY(0)`;
 });
+
+
+
+
+
+
+
+
+
+
+document.getElementById("apply-now").addEventListener("click", function () {
+    window.location.href = "https://app.freedomcapital.com/";
+});
+
+function callNow(e) {
+    e.preventDefault();
+    window.location.href = "tel:+18669447778";
+}
+
+// Add click event listener for the call button
+adCard.addEventListener("click", callNow);    
+
+document.getElementById("call-now").addEventListener("click", callNow);
+
+
+
+
+
+
+
+
+
+
+
+
+
+

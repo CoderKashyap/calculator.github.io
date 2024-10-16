@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+:root{
+
+}
+
 body {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
@@ -92,20 +96,6 @@ select {
     font-size: 0.8em;
     color: #666;
     margin-top: 5px;
-}
-
-.calculate-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1.4em;
-}
-
-.calculate-btn:hover {
-    background-color: #0056b3;
 }
 
 .result-card {
@@ -226,30 +216,54 @@ select {
     transform: scale(1.1);
 }
 
-.result-section-below-yes-no{
-    display: none;
-    /* align-items: center;
-    justify-content: center;
-    text-align: center; */
+
+
+.additional-cash-section strong{
+    color: #ff512f;
+}
+
+.additional-cash-section #cashToAccess{
+    max-width: 22rem;
+    margin: 1rem;
+}
+
+
+.additional-cash-section, .final-result-section, .result-section-below-yes-no {
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 20px;
+    /* box-shadow: 6px 10px 18px 0px #d3d3d3; */
+
+    margin-top: 2rem;
+    padding: 2rem 0;
 }
 
-.buttonBoxOf-result-section-below-yes-no{
-    display: flex;
-    /* align-items: center;
-    justify-content: center; */
-    gap: 2rem;
+
+.result-section-below-yes-no p, .additional-cash-section p, .final-result-section h3{
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 1rem;
 }
 
 
-.buttonBoxOf-result-section-below-yes-no button, #calculateFinal{
-    background-color: #1957e7;
+#newMortgageAmount{
+    color: #e77d27;
+}
+
+
+.buttonBoxOf-result-section-below-yes-no button,
+#calculateFinal {
+    background-color: #e77d27;
     color: white;
     border: none;
     padding: 12px 22px;
     border-radius: 20px;
     cursor: pointer;
-    margin: 1.4rem;
+    margin: 0.8rem 1.4rem;
     font-size: 1.2em;
     transition: transform 0.3s ease;
     box-shadow: 0px 0px 2px 0px #e6e6e6;
@@ -383,15 +397,15 @@ select {
     white-space: normal;
 }
 
-.aboutCalculatorSection ul{
+.aboutCalculatorSection ul {
     padding: 0 2rem;
 }
 
-.aboutCalculatorSection ul li{
+.aboutCalculatorSection ul li {
     margin: 1rem;
 }
 
-.hrInCalculatorAbout{
+.hrInCalculatorAbout {
     border: 1px solid #e9e9e9;
     margin: 2rem 0;
 }
