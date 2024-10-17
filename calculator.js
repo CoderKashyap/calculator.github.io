@@ -73,7 +73,7 @@ function calculateMortgage() {
     monthlyPaymentEl.textContent = `$${monthlyPayment.toFixed(2)}`;
     totalMortgageEl.textContent = `$${mortgageAmount.toFixed(2)}`;
     totalInterestEl.textContent = `$${totalInterest.toFixed(2)}`;
-    totalInstallmentsEl.textContent = `${numberOfPayments.toFixed(0)}`;
+    totalInstallmentsEl.textContent = `${numberOfPayments}`;
 
     createAmortizationSchedule(mortgageAmount, monthlyInterestRate, monthlyPayment, numberOfPayments);
     createChart(mortgageAmount, monthlyInterestRate, monthlyPayment, numberOfPayments);
@@ -339,6 +339,19 @@ document.getElementById("call-now").addEventListener("click", callNow);
 
 
 
+const downPaymentType = document.getElementById("downPaymentType");
+const symbol = document.getElementById("symbol");
+
+
+downPaymentType.addEventListener("change", function () {
+    const selectedValue = downPaymentType.value;
+
+    // Update the symbol based on the selection
+    symbol.textContent = selectedValue;
+
+    // Adjust padding based on the selected option
+    downPaymentInput.style.paddingLeft = selectedValue === "%" ? "28px" : "22px";
+});
 
 
 

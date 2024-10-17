@@ -67,6 +67,78 @@ label {
     color: rgb(80, 80, 80);
 }
 
+
+
+
+
+
+
+
+
+
+/* _____________________ */
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-prefix {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.prefix {
+    position: absolute;
+    left: 10px;
+    pointer-events: none; /* Ensures the prefix is not clickable */
+    color: rgb(80, 80, 80);
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.input-prefix input[type="text"] {
+    padding-left: 22px; 
+}
+
+#downPaymentType{
+    color: rgb(80, 80, 80);
+    font-weight: 500;
+}
+
+/* _____________________ */
+
+
+
+.suffix {
+    position: absolute;
+    right: 10px; /* Adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgb(80, 80, 80);
+    font-size: 1.1em;
+    font-weight: 500;
+    pointer-events: none; /* Ensures the suffix is not clickable */
+}
+
+.input-prefix input[type="text"] {
+    padding-right: 22px; /* Add padding for the right suffix */
+}
+
+
+
+/* _____________________ */
+
+
+
+
+
+
+
+
+
+
 input,
 select {
     width: 100%;
@@ -224,7 +296,7 @@ select {
 
 .additional-cash-section #cashToAccess{
     max-width: 22rem;
-    margin: 1rem;
+    margin: 1rem 0;
 }
 
 

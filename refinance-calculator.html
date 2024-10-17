@@ -33,20 +33,21 @@
             <div class="input-section-container">
                 <div class="input-group">
                     <label for="propertyValue">Property Value ($):</label>
-                    <input type="text" id="propertyValue" placeholder="$0" autocomplete="true" autofocus>
+                    <div class="input-prefix">
+                        <span class="prefix">$</span>
+                        <input type="text" id="propertyValue" autocomplete="true" autofocus>
+                    </div>
                 </div>
 
                 <div class="input-group">
                     <label for="currentMortgage">Current Mortgage ($):</label>
-                    <input type="text" id="currentMortgage" placeholder="$0" autocomplete="true" autofocus>
+                    <div class="input-prefix">
+                        <span class="prefix">$</span>
+                        <input type="text" id="currentMortgage" autocomplete="true" autofocus>
+                    </div>
 
                     <p class="info-text">The new interest rate you’re considering</p>
                 </div>
-
-                <!-- <div class="flex-box-center">
-                    <button type="button" id="calculate" class="calculateBtn">Calculate</button>
-                </div> -->
-
 
             </div>
 
@@ -99,7 +100,12 @@
         <!-- ----------------- -->
         <div class="additional-cash-section" id="additional-cash-section" style="display: none;">
             <p>How much cash do you want to access up to <strong id="maxAvailableCash"></strong>?</p>
-            <input type="text" id="cashToAccess" placeholder="Enter amount" required>
+
+            <div class="input-prefix">
+                <span class="prefix">$</span>
+                <input type="text" id="cashToAccess" required>
+            </div>
+
             <button type="button" id="calculateFinal">Calculate New Mortgage</button>
         </div>
 
@@ -265,7 +271,7 @@
 
 
 
-        <div class="LoanFormulaSection">
+        <!-- <div class="LoanFormulaSection">
             <div class="sectionBorder"></div>
 
             <h3>Refinance Calculation Formula</h3>
@@ -298,13 +304,12 @@
             </div>
 
 
-
             <p> To find the periodic interest rate, you will need to know your payment frequency. This is how often
                 you’ll be making loan payments. For example, if you will be making monthly loan payments, then your
                 payment frequency is 12 (the number of months in a year). To find the periodic interest rate, divide the
                 annual interest rate by the number of payments you’ll make in one year. You’ll then convert the rate
                 into decimal form.</p>
-        </div>
+        </div> -->
 
 
 
@@ -312,37 +317,24 @@
         <div class="LoanFormulaSection">
             <div class="sectionBorder"></div>
 
-            <h3>How To Calculate Loan Interest</h3>
+            <h3>Refinance Calculation Formula</h3>
 
-            <p>To calculate the total interest paid on a loan, you will need to know your loan payment amount. Once you
-                know how much your loan payment amount would be, to calculate the total interest paid on this loan, you
-                would use the following formula.</p>
-
-            <p><strong>Total Interest Paid = (Loan Payment x Number of Payments) – Loan Amount</strong></p>
-
-            <p>For example, let’s say that you borrowed $10,000 for 5 years at a 5% interest rate. From our earlier
-                example, we found the monthly payment amount would be $188.71, spread out over 60 monthly payments. How
-                much interest would you pay over the life of this loan?</p>
-
-            <p> Borrowing $10,000 at a 5% rate would cost you $1,322.60 due to interest charges over 5 years. </p>
-
+            <p>To calculate your refinance loan amount, you need to know your current property value and the outstanding
+                balance of your current mortgage. The formula will help you determine the loan amount you can access by
+                refinancing.</p>
 
             <div class="loanInterestFocusText">
-                <p><strong>Total Interest Paid = ($188.71×60)−$10,000</strong></p>
-                <p><strong>Total Interest Paid=$1,322.60</strong></p>
+                <p><strong>Refinance Loan Amount = Property Value - Current Mortgage</strong></p>
+                <p>where</p>
+                <p><strong>Property Value</strong> = Current market value of the property</p>
+                <p><strong>Current Mortgage</strong> = Outstanding loan balance on the property</p>
             </div>
 
 
-            <p>This calculation uses the total lifetime payment of your loan, which is also another result that you can
-                get from this page’s loan calculator. The total lifetime payment can be found by this formula:</p>
+            <p>This formula helps determine the amount you can borrow by refinancing. If the new loan amount is higher
+                than the current mortgage, the difference can be used for other financial needs. Make sure to consult
+                with your lender about any costs and terms associated with refinancing.</p>
 
-
-            <p><strong>Total Lifetime Payment = (Loan Payment x Number of Payments)</strong></p>
-
-            <p>In the above example, that would be $188.60 x 60 months, or $11,322.60.</p>
-            <p>Some loan types, such as mortgages, have term lengths that are shorter than the loan’s amortization
-                period. You can use a mortgage interest calculator to find the total interest paid in one mortgage term.
-            </p>
 
         </div>
 
@@ -378,92 +370,121 @@
     </div>
 
 
-
     <script>
         const propertyValueInput = document.getElementById('propertyValue');
         const currentMortgageInput = document.getElementById('currentMortgage');
+        const cashToAccessInput = document.getElementById('cashToAccess');
         const errorMessageEl = document.getElementById('errorMessage');
-
+    
         // Utility functions for displaying errors
         function showError(message) {
             errorMessageEl.textContent = message;
             errorMessageEl.style.display = 'block';
         }
-
+    
         function hideError() {
             errorMessageEl.style.display = 'none';
         }
-
+    
+        // Format the currency value with commas and decimals
         function formatCurrency(value) {
             value = value.replace(/[^\d.]/g, '');
+            if (value === '') return ''; // Return empty string if input is empty
+    
             const parts = value.split('.');
             if (parts.length > 1) {
-                parts[1] = parts[1].slice(0, 2);
+                parts[1] = parts[1].slice(0, 2); // Limit to two decimal places
                 value = parts.join('.');
             }
             value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    
+            // Ensure .00 if no decimals are present and input is not empty
+            if (!value.includes('.')) {
+                value += '.00';
+            } else if (parts[1].length === 1) {
+                // If only one decimal place, add an extra 0 (e.g., 123.4 -> 123.40)
+                value += '0';
+            }
             return value;
         }
-
+    
+        // Clean currency value during editing and add commas
         function handleCurrencyInput(input) {
-            input.value = formatCurrency(input.value);
+            const cursorPosition = input.selectionStart;
+            const valueBefore = input.value;
+    
+            const formattedValue = input.value.replace(/[^\d.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            input.value = formattedValue;
+    
+            const adjustment = formattedValue.length - valueBefore.length;
+            input.setSelectionRange(cursorPosition + adjustment, cursorPosition + adjustment);
         }
-
-        // Add event listeners to inputs
-        propertyValueInput.addEventListener('input', () => handleCurrencyInput(propertyValueInput));
-        currentMortgageInput.addEventListener('input', () => handleCurrencyInput(currentMortgageInput));
-
+    
+        // Remove .00 during editing (focus) and re-format on blur
+        function handleCurrencyFocus(input) {
+            input.value = input.value.replace('.00', ''); // Remove .00 for editing
+        }
+    
+        function handleCurrencyBlur(input) {
+            if (input.value.trim() !== '') { // Append .00 only if input has a value
+                input.value = formatCurrency(input.value);
+            }
+        }
+    
+        // Attach input, focus, and blur event listeners
+        [propertyValueInput, currentMortgageInput, cashToAccessInput].forEach(input => {
+            input.addEventListener('input', () => handleCurrencyInput(input));
+            input.addEventListener('focus', () => handleCurrencyFocus(input));
+            input.addEventListener('blur', () => handleCurrencyBlur(input));
+        });
+    
         // Auto-calculate only if both fields are filled
         [propertyValueInput, currentMortgageInput].forEach(input => {
             input.addEventListener('input', calculateRefinance);
         });
-
+    
+        // Calculate Refinance
         function calculateRefinance() {
             const propertyValue = parseFloat(propertyValueInput.value.replace(/[^\d.]/g, ''));
             const currentMortgage = parseFloat(currentMortgageInput.value.replace(/[^\d.]/g, ''));
-
-            // Hide sections and reset UI if any input is empty
+    
             if (!propertyValue || !currentMortgage) {
                 resetUI();
                 return;
             }
-
+    
             if (isNaN(propertyValue) || isNaN(currentMortgage)) {
                 showError("Please enter valid numbers for Property Value and Current Mortgage.");
                 return;
             }
-
-            // Clear any existing error messages
+    
             hideError();
-
-            // Maximum mortgage calculation
+    
             const maxMortgagePercentage = 0.75;
             const maxMortgageAmount = propertyValue * maxMortgagePercentage;
             const availableCash = maxMortgageAmount - currentMortgage;
-
-            // Update UI
-            document.getElementById('homeValueDisplay').innerText = `$${propertyValue.toLocaleString()}`;
-            document.getElementById('maxMortgageAmount').innerText = `$${maxMortgageAmount.toLocaleString()}`;
-            document.getElementById('currentMortgageDisplay').innerText = `$${currentMortgage.toLocaleString()}`;
-            document.getElementById('availableCash').innerText = `$${availableCash.toLocaleString()}`;
-            document.getElementById('maxAvailableCash').innerText = `$${availableCash.toLocaleString()}`;
+    
+            document.getElementById('homeValueDisplay').innerText = `$${formatCurrency(propertyValue.toString())}`;
+            document.getElementById('maxMortgageAmount').innerText = `$${formatCurrency(maxMortgageAmount.toString())}`;
+            document.getElementById('currentMortgageDisplay').innerText = `$${formatCurrency(currentMortgage.toString())}`;
+            document.getElementById('availableCash').innerText = `$${formatCurrency(availableCash.toString())}`;
+            document.getElementById('maxAvailableCash').innerText = `$${formatCurrency(availableCash.toString())}`;
             document.getElementById('result-section-below-yes-no').style.display = "flex";
-
-            // Handle YES/NO responses
+    
             document.getElementById('yesBtn').addEventListener('click', function () {
                 document.getElementById('additional-cash-section').style.display = "flex";
             });
-
+    
             document.getElementById('noBtn').addEventListener('click', function () {
                 document.getElementById('additional-cash-section').style.display = "none";
                 document.getElementById('final-result-section').style.display = "none";
                 hideError();
-                showError("Thank you! You choose not to access additional cash.");
+                showError("Thank you! You chose not to access additional cash.");
             });
         }
-
+    
+        // Reset the UI
         function resetUI() {
-            // Reset UI values
             document.getElementById('homeValueDisplay').innerText = `$--`;
             document.getElementById('maxMortgageAmount').innerText = `$--`;
             document.getElementById('currentMortgageDisplay').innerText = `$--`;
@@ -474,75 +495,30 @@
             document.getElementById('final-result-section').style.display = "none";
             hideError();
         }
-
+    
         document.getElementById('calculateFinal').addEventListener('click', function () {
-            const cashToAccess = parseFloat(document.getElementById('cashToAccess').value.replace(/[^\d.]/g, ''));
+            const cashToAccess = parseFloat(cashToAccessInput.value.replace(/[^\d.]/g, ''));
             const currentMortgage = parseFloat(document.getElementById('currentMortgage').value.replace(/[^\d.]/g, ''));
             const propertyValue = parseFloat(document.getElementById('propertyValue').value.replace(/[^\d.]/g, ''));
             const maxAvailableCash = (propertyValue * 0.75) - currentMortgage;
-
+    
             if (isNaN(cashToAccess) || cashToAccess > maxAvailableCash) {
-                showError(`Please enter a valid cash amount up to $${maxAvailableCash.toLocaleString()}.`);
+                showError(`Please enter a valid cash amount up to $${formatCurrency(maxAvailableCash.toString())}.`);
                 return;
             }
-
-            // Calculations
+    
             const newMortgageAmount = currentMortgage + cashToAccess;
-
-            // Update final results
-            document.getElementById('currentMortgageFinal').innerText = `$${currentMortgage.toLocaleString()}`;
-            document.getElementById('additionalEquity').innerText = `$${cashToAccess.toLocaleString()}`;
-            document.getElementById('finalAvailableCash').innerText = `$${(maxAvailableCash - cashToAccess).toLocaleString()}`;
-            document.getElementById('newMortgageAmount').innerText = `$${newMortgageAmount.toLocaleString()}`;
-
+    
+            document.getElementById('currentMortgageFinal').innerText = `$${formatCurrency(currentMortgage.toString())}`;
+            document.getElementById('additionalEquity').innerText = `$${formatCurrency(cashToAccess.toString())}`;
+            document.getElementById('finalAvailableCash').innerText = `$${formatCurrency((maxAvailableCash - cashToAccess).toString())}`;
+            document.getElementById('newMortgageAmount').innerText = `$${formatCurrency(newMortgageAmount.toString())}`;
+    
             document.getElementById('final-result-section').style.display = "flex";
             hideError();
         });
-
-
-
-
-        // Select the advertisement card
-        const adCard = document.querySelector('.servicesAdvertisment');
-
-        // Function to apply the tilt effect based on mouse position
-        adCard.addEventListener('mousemove', (e) => {
-            const cardWidth = adCard.offsetWidth;
-            const cardHeight = adCard.offsetHeight;
-            const centerX = adCard.offsetLeft + cardWidth / 2;
-            const centerY = adCard.offsetTop + cardHeight / 2;
-
-            const mouseX = e.clientX - centerX;
-            const mouseY = e.clientY - centerY;
-
-            const rotateX = (mouseY / cardHeight) * 0; // Adjust tilt intensity
-            const rotateY = (mouseX / cardWidth) * 2; // Adjust tilt intensity
-
-            adCard.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
-        });
-
-        // Reset the tilt effect when the mouse leaves the card
-        adCard.addEventListener('mouseleave', () => {
-            adCard.style.transform = `perspective(800px) scale(1) rotateX(0) rotateY(0)`;
-        });
-
-        function callNow(e) {
-            e.preventDefault();
-            window.location.href = "tel:+18669447778";
-        }
-
-        // Add click event listener for the call button
-        adCard.addEventListener("click", callNow);
-
-        document.getElementById("call-now").addEventListener("click", callNow);
-
-
-        document.getElementById("apply-now").addEventListener("click", function () {
-            window.location.href = "https://app.freedomcapital.com/";
-        });
-
-
     </script>
+    
 
 </body>
 

@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 
-
     <link rel="stylesheet" href="./calculator.css">
 
 </head>
@@ -35,10 +34,15 @@
         <div class="calculator-container">
             <div class="input-section-container">
                 <!-- Input for Home Price -->
+
                 <div class="input-group">
                     <label for="startingPrice">Property value</label>
-                    <input type="text" id="startingPrice" placeholder="$0">
+                    <div class="input-prefix">
+                        <span class="prefix">$</span>
+                        <input type="text" id="startingPrice" autocomplete="true" autofocus>
+                    </div>
                 </div>
+
 
                 <!-- Input for Down Payment -->
                 <div class="input-group">
@@ -48,7 +52,11 @@
                             <option value="$">$</option>
                             <option value="%">%</option>
                         </select>
-                        <input type="text" id="downPayment" placeholder="0">
+                        <div class="input-prefix">
+                            <span id="symbol" class="prefix">$</span>
+                            <input type="text" id="downPayment" autocomplete="true" autofocus>
+                            <span class="suffix" id="percentageSymbol" style="display:none;">%</span>
+                        </div>
                     </div>
                     <p class="info-text">An average down payment is about 5% of the property value.</p>
                 </div>
@@ -283,6 +291,7 @@
     </div>
 
 
+
     <script>
         const startingPriceInput = document.getElementById('startingPrice');
         const downPaymentInput = document.getElementById('downPayment');
@@ -294,28 +303,67 @@
         const totalInterestEl = document.getElementById('totalInterest');
         const totalInstallmentsEl = document.getElementById('installments');
         const errorMessageEl = document.getElementById('errorMessage');
+        const adCard = document.querySelector('.servicesAdvertisment');
+        const symbol = document.getElementById("symbol");
 
-        function formatCurrency(value) {
+        function formatCurrency(value, isForDisplay = true) {
+            // Remove any non-digit and non-period characters
             value = value.replace(/[^\d.]/g, '');
+
+            if (!value) return ''; // Return empty if no value
+
             const parts = value.split('.');
             if (parts.length > 1) {
                 parts[1] = parts[1].slice(0, 2);
                 value = parts.join('.');
             }
+
             value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+            // Add .00 if it's for display purposes and doesn't already have decimal places
+            if (isForDisplay && !value.includes('.')) {
+                value += '.00';
+            }
+
             return value;
         }
 
         function handleCurrencyInput(input) {
             const cursorPosition = input.selectionStart;
             const oldLength = input.value.length;
-            input.value = formatCurrency(input.value);
+            input.value = formatCurrency(input.value, false); // Format without adding .00
             const newLength = input.value.length;
             input.setSelectionRange(cursorPosition + (newLength - oldLength), cursorPosition + (newLength - oldLength));
         }
 
+        function formatCurrencyForDisplay(input) {
+            // Format the value and add .00 when the input loses focus, unless it’s a percentage
+            if (downPaymentTypeInput.value !== "%") {
+                input.value = formatCurrency(input.value);
+            } else {
+                input.value = input.value.replace(/\.00$/, ''); // Remove .00 if present
+            }
+        }
+
         startingPriceInput.addEventListener('input', () => handleCurrencyInput(startingPriceInput));
         downPaymentInput.addEventListener('input', () => handleCurrencyInput(downPaymentInput));
+
+        startingPriceInput.addEventListener('blur', () => formatCurrencyForDisplay(startingPriceInput));
+        downPaymentInput.addEventListener('blur', () => formatCurrencyForDisplay(downPaymentInput));
+
+        startingPriceInput.addEventListener('focus', () => {
+            // Remove .00 when input is focused for editing, if there's a value
+            if (startingPriceInput.value) {
+                startingPriceInput.value = startingPriceInput.value.replace(/\.00$/, '');
+            }
+        });
+
+        downPaymentInput.addEventListener('focus', () => {
+            // Remove .00 when input is focused for editing, if there's a value
+            if (downPaymentInput.value) {
+                downPaymentInput.value = downPaymentInput.value.replace(/\.00$/, '');
+            }
+        });
 
         [startingPriceInput, downPaymentInput, interestRateInput, amortizationPeriodInput, downPaymentTypeInput].forEach(input => {
             input.addEventListener('input', calculateMortgage);
@@ -330,7 +378,6 @@
             errorMessageEl.style.display = 'none';
         }
 
-
         function calculateMortgage() {
             const startingPrice = parseFloat(startingPriceInput.value.replace(/[^\d.]/g, ''));
             let downPayment = parseFloat(downPaymentInput.value.replace(/[^\d.]/g, ''));
@@ -338,18 +385,16 @@
             const annualInterestRate = parseFloat(interestRateInput.value) / 100;
             const amortizationPeriod = parseInt(amortizationPeriodInput.value);
 
-            // If the starting price or down payment is not valid, stop the calculation
             if (!startingPrice || !downPayment || !annualInterestRate || !amortizationPeriod) {
                 hideError();
                 return;
             }
 
-            // Calculate the down payment based on percentage or dollar
             if (downPaymentType === "%") {
+                // Treat downPayment as a percentage
                 downPayment = (downPayment / 100) * startingPrice;
             }
 
-            // Check for down payment less than 20%
             const downPaymentPercentage = (downPayment / startingPrice) * 100;
             if (downPaymentPercentage < 20 && amortizationPeriod > 25) {
                 showError("Alert: For down payments less than 20%, the maximum amortization period is 25 years.");
@@ -358,61 +403,42 @@
                 hideError();
             }
 
-            // Calculate the mortgage amount (loan principal)
             const mortgageAmount = startingPrice - downPayment;
-
-            // Monthly interest rate
             const monthlyInterestRate = annualInterestRate / 12;
-
-            // Total number of payments
             const numberOfPayments = amortizationPeriod * 12;
 
-            // Calculate monthly payment (using standard mortgage formula)
             const monthlyPayment = (mortgageAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
-
-            // Total interest paid
             const totalInterest = (monthlyPayment * numberOfPayments) - mortgageAmount;
 
-            // Update the UI
-            monthlyPaymentEl.textContent = `$${monthlyPayment.toFixed(2)}`;
-            totalMortgageEl.textContent = `$${mortgageAmount.toFixed(2)}`;
-            totalInterestEl.textContent = `$${totalInterest.toFixed(2)}`;
-            totalInstallmentsEl.textContent = `${numberOfPayments.toFixed(2)}`;
+            monthlyPaymentEl.textContent = `$${formatCurrency(monthlyPayment.toFixed(2))}`;
+            totalMortgageEl.textContent = `$${formatCurrency(mortgageAmount.toFixed(2))}`;
+            totalInterestEl.textContent = `$${formatCurrency(totalInterest.toFixed(2))}`;
+            totalInstallmentsEl.textContent = `${numberOfPayments}`;
 
-            // Create the mortgage summary description
             const summary = `
-            <div class="calculation-description-container">
-                <h3 class="summary-title">Mortgage Summary</h3>
-                <div class="amortization-period">
-                    <p class="amortization-text">
-                        Over the <strong>${amortizationPeriod}-year</strong> amortization period, you will:
-                    </p>
-                    <ul class="summary-list">
-                        <li>Have made <strong>${numberOfPayments}</strong> monthly payments (12x per year) of <strong>$${monthlyPayment.toFixed(2)}</strong>.</li>
-                        <li>Have paid <strong>$${mortgageAmount.toFixed(2)}</strong> in principal, <strong>$${totalInterest.toFixed(2)}</strong> in interest, for a total of <strong>$${(mortgageAmount + totalInterest).toFixed(2)}</strong>.</li>
-                    </ul>
+                <div class="calculation-description-container">
+                    <h3 class="summary-title">Mortgage Summary</h3>
+                    <div class="amortization-period">
+                        <p class="amortization-text">
+                            Over the <strong>${amortizationPeriod}-year</strong> amortization period, you will:
+                        </p>
+                        <ul class="summary-list">
+                            <li>Have made <strong>${numberOfPayments}</strong> monthly payments (12x per year) of <strong>$${formatCurrency(monthlyPayment.toFixed(2))}</strong>.</li>
+                            <li>Have paid <strong>$${formatCurrency(mortgageAmount.toFixed(2))}</strong> in principal, <strong>$${formatCurrency(totalInterest.toFixed(2))}</strong> in interest, for a total of <strong>$${formatCurrency((mortgageAmount + totalInterest).toFixed(2))}</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="term-end-summary">
+                        <p class="amortization-text">
+                            At the end of <strong>${amortizationPeriod}</strong>-year amortization period, you will:
+                        </p>
+                        <ul class="summary-list">
+                            <li>Have left mortgage of <strong>$0.00</strong>.</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="term-end-summary">
-                    <p class="amortization-text">
-                        At the end of <strong>${amortizationPeriod}</strong>-year amortization period, you will:
-                    </p>
-                    <ul class="summary-list">
-                        <li>Have left mortgage of <strong>$0.00</strong>.</li>
-                    </ul>
-                </div>
-            </div>
-    `;
-
-            // Insert the summary into the HTML
+            `;
             document.getElementById('mortgageSummary').innerHTML = summary;
         }
-
-
-
-
-
-        // Select the advertisement card
-        const adCard = document.querySelector('.servicesAdvertisment');
 
         // Function to apply the tilt effect based on mouse position
         adCard.addEventListener('mousemove', (e) => {
@@ -439,19 +465,62 @@
             window.location.href = "https://app.freedomcapital.com/";
         });
 
-        
         function callNow(e) {
             e.preventDefault();
             window.location.href = "tel:+18669447778";
         }
 
         // Add click event listener for the call button
-        adCard.addEventListener("click", callNow);    
+        adCard.addEventListener("click", callNow);
 
         document.getElementById("call-now").addEventListener("click", callNow);
 
 
+        const percentageSymbol = document.getElementById("percentageSymbol");
+
+        downPaymentTypeInput.addEventListener("change", function () {
+            const selectedValue = downPaymentTypeInput.value;
+
+            // Update the symbols based on the selection
+            if (selectedValue === "%") {
+                symbol.style.display = "none"; // Hide the dollar symbol
+                percentageSymbol.style.display = "inline"; // Show the percentage symbol
+                downPaymentInput.style.paddingLeft = "10px"; // Adjust padding for the input
+                downPaymentInput.value = "";
+            } else {
+                symbol.style.display = "inline"; // Show the dollar symbol
+                percentageSymbol.style.display = "none"; // Hide the percentage symbol
+                downPaymentInput.style.paddingLeft = "22px"; // Adjust padding for the input
+                downPaymentInput.value = "";
+            }
+        });
+
+        // Format the input value on blur
+        downPaymentInput.addEventListener("blur", () => {
+            if (downPaymentTypeInput.value === "%") {
+                downPaymentInput.value = downPaymentInput.value.replace(/\.00$/, ''); // Remove .00 if present
+            } else {
+                downPaymentInput.value = formatCurrency(downPaymentInput.value); // Format as currency
+            }
+        });
+
+        // Input handling
+        downPaymentInput.addEventListener('input', () => {
+            if (downPaymentTypeInput.value === "%") {
+                // Allow only numeric input for percentage
+                downPaymentInput.value = downPaymentInput.value.replace(/[^0-9]/g, '');
+            } else {
+                handleCurrencyInput(downPaymentInput);
+            }
+        });
+
+
+
+
+
     </script>
+
+
 
 
 

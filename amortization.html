@@ -34,7 +34,10 @@
                 <!-- Input for Home Price -->
                 <div class="input-group">
                     <label for="startingPrice">Property value</label>
-                    <input type="text" id="startingPrice" placeholder="$0">
+                    <div class="input-prefix">
+                        <span class="prefix">$</span>
+                        <input type="text" id="startingPrice" autocomplete="true" autofocus>
+                    </div>
                 </div>
 
                 <!-- Input for Down Payment -->
@@ -45,7 +48,10 @@
                             <option value="$">$</option>
                             <option value="%">%</option>
                         </select>
-                        <input type="text" id="downPayment" placeholder="0">
+                        <div class="input-prefix">
+                            <span id="symbol" class="prefix">$</span>
+                            <input type="text" id="downPayment" autocomplete="true" autofocus>
+                        </div>
                     </div>
                     <p class="info-text">An average down payment is about 5% of the property value.</p>
                 </div>
