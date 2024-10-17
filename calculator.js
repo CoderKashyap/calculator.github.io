@@ -1,3 +1,48 @@
+// const startingPriceInput = document.getElementById('startingPrice');
+// const downPaymentInput = document.getElementById('downPayment');
+// const downPaymentTypeInput = document.getElementById('downPaymentType');
+// const interestRateInput = document.getElementById('interestRate');
+// const amortizationPeriodInput = document.getElementById('amortizationPeriod');
+// const monthlyPaymentEl = document.getElementById('monthlyPayment');
+// const totalMortgageEl = document.getElementById('totalMortgage');
+// const totalInterestEl = document.getElementById('totalInterest');
+// const totalInstallmentsEl = document.getElementById('installments');
+// const amortizationScheduleEl = document.getElementById('amortizationSchedule');
+// const errorMessageEl = document.getElementById('errorMessage');
+
+// function formatCurrency(value) {
+//     value = value.replace(/[^\d.]/g, '');
+//     const parts = value.split('.');
+//     if (parts.length > 1) {
+//         parts[1] = parts[1].slice(0, 2);
+//         value = parts.join('.');
+//     }
+//     value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//     return value;
+// }
+
+// function handleCurrencyInput(input) {
+//     const cursorPosition = input.selectionStart;
+//     const oldLength = input.value.length;
+//     input.value = formatCurrency(input.value);
+//     const newLength = input.value.length;
+//     input.setSelectionRange(cursorPosition + (newLength - oldLength), cursorPosition + (newLength - oldLength));
+// }
+
+
+// startingPriceInput.addEventListener('input', () => {
+//     handleCurrencyInput(startingPriceInput);
+//     calculateMortgage();
+// });
+// downPaymentInput.addEventListener('input', () => {
+//     handleCurrencyInput(downPaymentInput);
+//     calculateMortgage();
+// });
+
+
+// downPaymentTypeInput.addEventListener('change', calculateMortgage);
+// interestRateInput.addEventListener('input', calculateMortgage);
+// amortizationPeriodInput.addEventListener('change', calculateMortgage);
 
 
 const startingPriceInput = document.getElementById('startingPrice');
@@ -11,15 +56,19 @@ const totalInterestEl = document.getElementById('totalInterest');
 const totalInstallmentsEl = document.getElementById('installments');
 const amortizationScheduleEl = document.getElementById('amortizationSchedule');
 const errorMessageEl = document.getElementById('errorMessage');
-// ... (keep existing variable declarations) ...
 
 function formatCurrency(value) {
+    // Remove non-numeric characters except for decimal point
     value = value.replace(/[^\d.]/g, '');
     const parts = value.split('.');
+
+    // Limit to two decimal places
     if (parts.length > 1) {
         parts[1] = parts[1].slice(0, 2);
         value = parts.join('.');
     }
+
+    // Add commas for thousands
     value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return value;
 }
@@ -29,18 +78,48 @@ function handleCurrencyInput(input) {
     const oldLength = input.value.length;
     input.value = formatCurrency(input.value);
     const newLength = input.value.length;
+
+    // Adjust cursor position
     input.setSelectionRange(cursorPosition + (newLength - oldLength), cursorPosition + (newLength - oldLength));
 }
 
+function handleFocusOut(input) {
+    // If input is empty, remove .00
+    if (input.value.trim() === '') {
+        input.value = '';
+    } else {
+        // Append .00 only if value exists
+        if (!input.value.endsWith('.00') && !input.value.endsWith('.0')) {
+            input.value = formatCurrency(input.value) + '.00';
+        }
+    }
+}
 
+function handleFocus(input) {
+    // Remove .00 for editing
+    if (input.value.endsWith('.00')) {
+        input.value = input.value.slice(0, -3); // Remove the last three characters (.00)
+    }
+}
+
+// Event Listeners for Inputs
 startingPriceInput.addEventListener('input', () => {
     handleCurrencyInput(startingPriceInput);
     calculateMortgage();
 });
+
 downPaymentInput.addEventListener('input', () => {
     handleCurrencyInput(downPaymentInput);
     calculateMortgage();
 });
+
+// Handle focus and blur events for proper formatting
+startingPriceInput.addEventListener('focus', () => handleFocus(startingPriceInput));
+startingPriceInput.addEventListener('blur', () => handleFocusOut(startingPriceInput));
+
+downPaymentInput.addEventListener('focus', () => handleFocus(downPaymentInput));
+downPaymentInput.addEventListener('blur', () => handleFocusOut(downPaymentInput));
+
 downPaymentTypeInput.addEventListener('change', calculateMortgage);
 interestRateInput.addEventListener('input', calculateMortgage);
 amortizationPeriodInput.addEventListener('change', calculateMortgage);
@@ -330,7 +409,7 @@ function callNow(e) {
 }
 
 // Add click event listener for the call button
-adCard.addEventListener("click", callNow);    
+adCard.addEventListener("click", callNow);
 
 document.getElementById("call-now").addEventListener("click", callNow);
 
@@ -339,18 +418,45 @@ document.getElementById("call-now").addEventListener("click", callNow);
 
 
 
-const downPaymentType = document.getElementById("downPaymentType");
 const symbol = document.getElementById("symbol");
 
 
-downPaymentType.addEventListener("change", function () {
-    const selectedValue = downPaymentType.value;
+const percentageSymbol = document.getElementById("percentageSymbol");
 
-    // Update the symbol based on the selection
-    symbol.textContent = selectedValue;
+downPaymentTypeInput.addEventListener("change", function () {
+    const selectedValue = downPaymentTypeInput.value;
 
-    // Adjust padding based on the selected option
-    downPaymentInput.style.paddingLeft = selectedValue === "%" ? "28px" : "22px";
+    // Update the symbols based on the selection
+    if (selectedValue === "%") {
+        symbol.style.display = "none"; // Hide the dollar symbol
+        percentageSymbol.style.display = "inline"; // Show the percentage symbol
+        downPaymentInput.style.paddingLeft = "10px"; // Adjust padding for the input
+        downPaymentInput.value = "";
+    } else {
+        symbol.style.display = "inline"; // Show the dollar symbol
+        percentageSymbol.style.display = "none"; // Hide the percentage symbol
+        downPaymentInput.style.paddingLeft = "22px"; // Adjust padding for the input
+        downPaymentInput.value = "";
+    }
+});
+
+// Format the input value on blur
+downPaymentInput.addEventListener("blur", () => {
+    if (downPaymentTypeInput.value === "%") {
+        downPaymentInput.value = downPaymentInput.value.replace(/\.00$/, ''); // Remove .00 if present
+    } else {
+        downPaymentInput.value = formatCurrency(downPaymentInput.value); // Format as currency
+    }
+});
+
+// Input handling
+downPaymentInput.addEventListener('input', () => {
+    if (downPaymentTypeInput.value === "%") {
+        // Allow only numeric input for percentage
+        downPaymentInput.value = downPaymentInput.value.replace(/[^0-9]/g, '');
+    } else {
+        handleCurrencyInput(downPaymentInput);
+    }
 });
 
 

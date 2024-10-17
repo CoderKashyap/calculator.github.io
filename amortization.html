@@ -41,7 +41,7 @@
                 </div>
 
                 <!-- Input for Down Payment -->
-                <div class="input-group">
+                <!-- <div class="input-group">
                     <label for="downPayment">Down Payment</label>
                     <div class="down-payment-group">
                         <select id="downPaymentType">
@@ -54,8 +54,26 @@
                         </div>
                     </div>
                     <p class="info-text">An average down payment is about 5% of the property value.</p>
+                </div> -->
+
+                <!-- Input for Down Payment -->
+                <div class="input-group">
+                    <label for="downPayment">Down Payment</label>
+                    <div class="down-payment-group">
+                        <select id="downPaymentType">
+                            <option value="$">$</option>
+                            <option value="%">%</option>
+                        </select>
+                        <div class="input-prefix">
+                            <span id="symbol" class="prefix">$</span>
+                            <input type="text" id="downPayment" autocomplete="true" autofocus>
+                            <span class="suffix" id="percentageSymbol" style="display:none;">%</span>
+                        </div>
+                    </div>
+                    <p class="info-text">An average down payment is about 5% of the property value.</p>
                 </div>
 
+                
 
                 <!-- Input for Interest Rate -->
                 <div class="input-group">
